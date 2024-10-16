@@ -1,6 +1,6 @@
 ---
-description: MULTIATAZA
 icon: '2'
+description: MULTIATAZA
 ---
 
 # Hari anitzeko programazioa
@@ -53,7 +53,7 @@ Hona hemen hariei lotutako gai komun batzuk:
 5. **Sarrailak**: Sarrailak bezalako sinkronizazio mekanismoak (adibidez, semaforoak) karga erantsia dira, eta errendimenduan gainbehera egin dezakete; programaren eraginkortasuna ahuldu.
 6. **Konplexutasuna**: Programa multiharidunak konplexuagoak izaten dira diseinatu, inplementatu eta arazteko, programa isolatuekin alderatuta. Konplexutasun horrek errore joera handiagoa eman diezaieke.
 7. **Egoera ez determinismista**: litekeena da erabakiorra ez izatea programa multiharidun batean haria exekutatzeko ordena, baina arazo iturri bihurtu daiteke, kodea arazteko garaian ere.
-8. **Baliabideen eztabaida**: hariak baliabide finituak lortzeko lehiatu daitezke, hala nola CPU denbora, memoria edo I/O eragiketak, eraginkortasunik ezak eta errendimendu-itoguneak eragin ditzaketenak.
+8. **Baliabideen eztabaida**: hariak baliabide finituak lortzeko lehiatu daitezke, hala nola CPU denbora, memoria edo S/I eragiketak, eraginkortasunik ezak eta errendimendu-itoguneak eragin ditzaketenak.
 9. **Eskalagarritasuna**: hariek errendimendua hobetu dezaketen bitartean nukleo anitzeko prozesadoreetan, eskuragarri dauden nukleoak erabat erabil ditzaketen programak diseinatzea eta eraginkortasunez eskalatzea lan konplexua izan daiteke.
 
 Arazo horiek arintzeko, garatzaileek sinkronizazio-teknika egokiak aplikatu behar dituzte, programa multiharidunak kontu handiz diseinatu, eta konmonuak kontrolatzeko mekanismoak erabili, hala nola sarrailak, semaforoak eta monitoreak. Gainera, programazio-lengoaia eta liburutegi modernoek tresnak eta abstrakzioak eskaintzen dituzte harien kudeaketa sinplifikatzeko eta gai horien egiantza murrizteko.
