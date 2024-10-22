@@ -112,7 +112,7 @@ public class Cifrador {
 
 ## Laburpen funtzioak edo _hash_
 
-Message digest edo mezu-laburpena, hash funtzioak bezala ezagunagoak, datu-bloke baten marka digitala da. Laburpen horiek prozesatzeko algoritmo ugari daude diseinatuta, SHA-1 eta MD5 dira ezagunenak.
+Message digest edo mezu-laburpenak (hash funtzioak bezala ezagunagoak), datu-bloke baten marka digitala dira. Laburpen horiek prozesatzeko algoritmo ugari daude diseinatuta, SHA-1 eta MD5 dira ezagunenak.
 
 Nabarmengarri ezaugarri hauek:
 
@@ -210,19 +210,18 @@ Resumen (hex data): FB59D31122913314111B92CD60628ED7E7DE62733F3B10DEDAF303AAABE5
 `GnuPG` metodo sortak  balio du testu soilen laburpenak baino fitxategi osoen hasha lortzeko.&#x20;
 
 {% hint style="info" %}
-Algoritmos disponibles para GnuPG
+**GnuPGn eskuragai dauden algoritmoak**
 
-Para ver la lista de algoritmos disponibles tenemos que mostrar la ayuda del comando
+Erabili daitezkeen algoritmoen zerrenda ezagutzeko komando-lerroko aginduari eskatu behar zaio:
 
 > gpg --help
 
-y en la parte superior observamos la información de los algoritmos disponibles para cada tipo de servicio. En concreto, de resúmenes, en mi versión instalada:
-
+Goikaldean ageriko dira zerbitzu bakoitzarentzat erabilgarri dituen algoritmoak. Laburpenak sortzerako:\
 Resumen: SHA1, RIPEMD160, SHA256, SHA384, SHA512, SHA224
 {% endhint %}
 
 Para generar un resumen de un archivo, ejecutamos el comando de la siguiente forma
 
 ```
-gpg --print-md SHA256 filename.ext
+gpg --print-md SHA256 fitxategia.luzapena
 ```
