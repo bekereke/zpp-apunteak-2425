@@ -199,7 +199,7 @@ public class U6S2_MessageDigest {
 
 Irteera:
 
-```
+```powershell
 Resumen (raw data): �Y�"�3��`b����bs?;������~E
 Resumen (hex data): FB59D31122913314111B92CD60628ED7E7DE62733F3B10DEDAF303AAABE57E45
 => Algoritmo: SHA-256, Provider: SUN 11
@@ -220,12 +220,8 @@ Goikaldean ageriko dira zerbitzu bakoitzarentzat erabilgarri dituen algoritmoak.
 Resumen: SHA1, RIPEMD160, SHA256, SHA384, SHA512, SHA224
 {% endhint %}
 
-Para generar un resumen de un archivo, ejecutamos el comando de la siguiente forma
+Fitxategi baten laburpena edo hash kodea lortuko da komando hau sartuta (aukeran norberak nahi lukeen algoritmoa):
 
-```
+```powershell
 gpg --print-md SHA256 fitxategia.luzapena
 ```
-
-#### GnuPG instalatzea
-
-{% embed url="https://gnupg.org/download/" %}
