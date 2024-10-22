@@ -104,12 +104,6 @@ public class Cifrador {
 }
 ```
 
-
-
-## ~~Zifraketa asimetrikoa edo gako pribatu/publiko parea~~
-
-
-
 ## Laburpen funtzioak edo _hash_
 
 Message digest edo mezu-laburpenak (hash funtzioak bezala ezagunagoak), datu-bloke baten marka digitala dira. Laburpen horiek prozesatzeko algoritmo ugari daude diseinatuta, SHA-1 eta MD5 dira ezagunenak.
@@ -216,8 +210,32 @@ Erabili daitezkeen algoritmoen zerrenda ezagutzeko komando-lerroko aginduari esk
 
 > gpg --help
 
-Goikaldean ageriko dira zerbitzu bakoitzarentzat erabilgarri dituen algoritmoak. Laburpenak sortzerako:\
-Resumen: SHA1, RIPEMD160, SHA256, SHA384, SHA512, SHA224
+Goikaldean ageriko dira zerbitzu bakoitzarentzat erabilgarri dituen algoritmoak.&#x20;
+
+```shell
+erabiltzailea@HZ129473:~$ gpg --help
+gpg (GnuPG) 2.2.27
+libgcrypt 1.9.4
+Copyright (C) 2021 Free Software Foundation, Inc.
+License GNU GPL-3.0-or-later <https://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Home: /home/erabiltzailea/.gnupg
+Supported algorithms:
+Pubkey: RSA, ELG, DSA, ECDH, ECDSA, EDDSA
+Cipher: IDEA, 3DES, CAST5, BLOWFISH, AES, AES192, AES256, TWOFISH,
+        CAMELLIA128, CAMELLIA192, CAMELLIA256
+Hash: SHA1, RIPEMD160, SHA256, SHA384, SHA512, SHA224
+Compression: Uncompressed, ZIP, ZLIB, BZIP2
+
+Syntax: gpg [options] [files]
+Sign, check, encrypt or decrypt
+Default operation depends on the input data
+```
+
+\
+**Laburbilduz**: SHA1, RIPEMD160, SHA256, SHA384, SHA512, SHA224
 {% endhint %}
 
 Fitxategi baten laburpena edo hash kodea lortuko da komando hau sartuta (aukeran norberak nahi lukeen algoritmoa):
@@ -225,3 +243,5 @@ Fitxategi baten laburpena edo hash kodea lortuko da komando hau sartuta (aukeran
 ```powershell
 gpg --print-md SHA256 fitxategia.luzapena
 ```
+
+## ~~Zifraketa asimetrikoa edo gako pribatu/publiko parea~~
