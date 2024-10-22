@@ -225,3 +225,7 @@ Para generar un resumen de un archivo, ejecutamos el comando de la siguiente for
 ```
 gpg --print-md SHA256 fitxategia.luzapena
 ```
+
+#### GnuPG instalatzea
+
+{% embed url="https://gnupg.org/download/" %}
