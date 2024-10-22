@@ -1,12 +1,13 @@
 ---
 icon: '3'
+description: Hash funtzioak, zifraketa simetrikoa, zifraketa asimetrikoa
 ---
 
 # Programazio seguruko teknikak
 
 <details>
 
-<summary>Ikaskuntza emaitza</summary>
+<summary><mark style="color:purple;">Ikaskuntza emaitza</mark></summary>
 
 ### <mark style="color:purple;">IE 5. Aplikazioak eta datuak babesten ditu, eta, eginkizun horretan, segurtasun-irizpideak aplikatuko ditu informazioa atzitzean, biltegiratzean eta transmititzean.</mark>
 
@@ -32,9 +33,9 @@ icon: '3'
 
 Oro har, socket-en bidez zerbait bidaltzen denean, «testu lau» gisa bidaltzen da; hau da, ez dakigu norbait dagoen sarean sniffer bat erabiltzen, eta, beraz, ez dakigu norbait datuak harrapatzen ari den. MitM (_Man in the Middle_) erasoa deritze. Are gehiago, sarean garraiatu gabe ere, lokalean bertan gordetako informazio zaurgarria ere babestu behar da sisteman sartu daitekeen erasotzaileengandik. Esate baterako, pasahitzak.&#x20;
 
-Oro har, segurua izan nahi duen edozein sistemak zifraketa teknikak erabili beharko ditu.
+Oro har, segurua izan nahi duen edozein sistemak zifraketa teknikak erabili beharko ditu. Kriptografia hitza grezierazko _kryptos_ hitzetik dator, ezkutukoa esan nahi du; eta, grafoak, idazkera esan nahi du. Kriptografiaren helburua mezu baten esanahia ezkutatzea da: mezua zifratzea edo kodetzea, alegia.
 
-## Programazio segururako praktikak
+## Zifraketa _simetrikoa_ edo gako ezkutukoa
 
 Mezu zifratuak bidaltzeko, mekanismo edo algoritmoren bat behar da testu arrunta ulertzen zailago bihurtzeko.
 
@@ -50,9 +51,9 @@ public String deszifratu(String testua,String gakoa)
 }
 ```
 
-## Zesar zifratze-sistema
+### Zesar zifratze-sistema
 
-Mezuak etsaiak harrapatu arren ulerkaitza izango zen eran adierazteko asmatu zuten, eta era errazean berreskuratu ahal izateko jatorrizkoa. Alfabetoko hizki guztiak posizio batean mugitzean datza eta ordenaren arabera mezuan sasi-alfabeto berrian transkribatzean:
+Mezua etsaiak harrapatu arren ulerkaitza izateko eran adierazteko asmatu zuten, eta era errazean berreskuratzeko jatorrizkoa. Alfabetoko hizki guztiak posizio batean mugitzean datza eta ordenaren arabera mezuan sasi-alfabeto berrian transkribatzean:
 
 ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789- BCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789-A
 
@@ -103,3 +104,125 @@ public class Cifrador {
 }
 ```
 
+
+
+## ~~Zifraketa asimetrikoa edo gako pribatu/publiko parea~~
+
+
+
+## Laburpen funtzioak edo _hash_
+
+Message digest edo mezu-laburpena, hash funtzioak bezala ezagunagoak, datu-bloke baten marka digitala da. Laburpen horiek prozesatzeko algoritmo ugari daude diseinatuta, SHA-1 eta MD5 dira ezagunenak.
+
+Nabarmengarri ezaugarri hauek:
+
+* Algoritmo bererako, laburpenak beti du tamaina bera, sortzeko erabili den datuen tamaina edozein dela ere.&#x20;
+* Ezinezkoa da jatorrizko informazioa laburpen batetik berreskuratzea.&#x20;
+* Hura sortzeko erabilitako daturik ez ditu sekula jasoko laburpenak.
+* Konputazionalki bideraezina da laburpen bera duten bi mezu aurkitzea. Ikuspuntu matematikotik oso zaila den arren ez da ezinezkoa.&#x20;
+* Laburtzeko diren datuen aldaketa txiki batek laburpen guztiz ezberdina sortuko du.
+
+<mark style="background-color:blue;">Laburpenak identifikatzaile bakar eta fidagarriak sortzeko erabiltzen dira.</mark> Batzuetan, _checksum_ deitzen zaie. Deskarga bat ondo egin den egiaztatzeko erabiltzen dira, edo, inork manipulatu ez izanaren egiaztagiritzat: nahikoa da fitxategien jatorrizko laburpena eskuragai izatea eta jasotako fitxategiarekin sortu berriarekin alderatzea.
+
+{% hint style="warning" %}
+**Hash batek ez du zifratzeko balio, konparaketentzako bai ordea**
+
+Garrantzitsua da nabarmentzea ezen, ezinezkoa denetik laburpenetik hura sortzeko erabilitako datuak berreskuratzea, laburpena ezin dela erabili informaziorik zifratzeko.
+
+Bestelakoa da erabilera: konparaketak egitea. Pasahitzekin erabiltzen da gehien: datu-baseetan laburpena gordetzen baita, pasahitzaren ordez. Hala, pasahitz bat jasotzen denean, haren laburpena sortzen dute, eta gordetako balioarekin alderatzen!
+{% endhint %}
+
+### `MessageDigest` klasea
+
+Aplikazioeetan kriptografikoki seguruak diren laburpen algoritmoak inplementatzeko klasea da: hala nola SHA-256, edo, SHA-512.
+
+JCArekin hash bat sortzeko, hau egin behar da:
+
+1. `MessageDigest` klaseko `getInstance()` metodo estatikoa erabiliz, `MessageDigest` instantzia edo objektua sortuko da parametro gisa aukeratu algoritmoaren izena zehaztuta. Nahi izanez gero, hornitzailearen izena zehaztuz egin daiteke.&#x20;
+2. Datuak `update()` metodoarekin gehitzen dira. Byte bat edo byte-array bat gehi daiteke. Metodo hau behin baino gehiagotan erabil daiteke datu berriak gehitzeko.&#x20;
+3. Hash balioa lortzeko `digest()` metodoa erabili.
+4. Hash berri bat kalkulatu nahi izanez gero, `reset()` metodoa erabiltzea dago eta prozesua berriro hasi.
+
+Esaterako:
+
+```java
+public class U6S2_MessageDigest {
+
+    public static void main(String[] args) {
+        String plaintext = "Esto es un texto plano.";
+        try {
+            // Obtenemos un ENGINE que implementa el algoritmo especificado
+            // Se puede indicar cualquier algoritmo disponible en el sistema
+            // SHA-224, SHA-512, SHA-256, SHA3-224, ...
+            MessageDigest m = MessageDigest.getInstance("SHA-256");
+
+            // Opcional - Reinicia el objeto para un nuevo uso 
+            // Por si queremos poner este código en un bucle y procesar más
+            // de un mensaje
+            m.reset();
+
+            // Realiza el resumen de los datos pasados por parámetro
+            // Si queremos procesar la información poco a poco, 
+            // debemos ir llamando al método update para cada bloque de datos
+            m.update(plaintext.getBytes());
+
+            // Completa el cálculo del valor del hash y devuelve el resumen
+            byte[] digest = m.digest();
+
+            // Mensaje de resumen
+            System.out.println("Resumen (raw data): " + new String(digest));
+
+            // Mensaje en formato hexadecimal
+            System.out.println("Resumen (hex data): " + toHexadecimal(digest));
+            
+            
+            // Información del proceso
+            System.out.println("=> Algoritmo: " + m.getAlgorithm() + ", Provider: " + m.getProvider().getName() + " " + m.getProvider().getVersionStr());
+        } catch (NoSuchAlgorithmException e) {
+            System.err.println("No se ha encontrado la implementación del algoritmo MD5 en ningún Provider");
+        }
+    }
+
+    static String toHexadecimal(byte[] hash) {
+        String hex = "";
+        for (int i = 0; i < hash.length; i++) {
+            String h = Integer.toHexString(hash[i] & 0xFF);
+            if (h.length() == 1) {
+                hex += "0";
+            }
+            hex += h;
+        }
+        return hex.toUpperCase();
+    }
+}
+```
+
+Irteera:
+
+```
+Resumen (raw data): �Y�"�3��`b����bs?;������~E
+Resumen (hex data): FB59D31122913314111B92CD60628ED7E7DE62733F3B10DEDAF303AAABE57E45
+=> Algoritmo: SHA-256, Provider: SUN 11
+```
+
+#### Fitxategien laburpenak&#x20;
+
+`GnuPG` metodo sortak  balio du testu soilen laburpenak baino fitxategi osoen hasha lortzeko.&#x20;
+
+{% hint style="info" %}
+Algoritmos disponibles para GnuPG
+
+Para ver la lista de algoritmos disponibles tenemos que mostrar la ayuda del comando
+
+> gpg --help
+
+y en la parte superior observamos la información de los algoritmos disponibles para cada tipo de servicio. En concreto, de resúmenes, en mi versión instalada:
+
+Resumen: SHA1, RIPEMD160, SHA256, SHA384, SHA512, SHA224
+{% endhint %}
+
+Para generar un resumen de un archivo, ejecutamos el comando de la siguiente forma
+
+```
+gpg --print-md SHA256 filename.ext
+```
