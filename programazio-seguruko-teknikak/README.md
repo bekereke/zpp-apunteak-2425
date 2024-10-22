@@ -35,6 +35,57 @@ Oro har, socket-en bidez zerbait bidaltzen denean, «testu lau» gisa bidaltzen 
 
 Oro har, segurua izan nahi duen edozein sistemak zifraketa teknikak erabili beharko ditu. Kriptografia hitza grezierazko _kryptos_ hitzetik dator, ezkutukoa esan nahi du; eta, grafoak, idazkera esan nahi du. Kriptografiaren helburua mezu baten esanahia ezkutatzea da: mezua zifratzea edo kodetzea, alegia.
 
+## Segurtasun digitaleko hainbat gako
+
+Komunikazio digitalen segurtasunaren funtsezko alderdiak hauek dira:
+
+* **Osotasuna**: Hartzaile batek jasotzen dituen datuak eta igorleak bidalitakoak berdinak direla ziurtatzeko aukera ematen du. Hau da, ez da aldatu kanalaren erdiko puntu bakar batean ere; dakigunez, kanal partekatua da, eta, beraz, ez da segurua. Kanalaren bidezko transmisioan izandako akatsek edo hirugarren batek nahita egindako ekintza batek eragin ditzakete aldaketak.
+* **Konfidentzialtasuna**: Ziurtatzen digu transmititutako datuak mezuaren hartzailearentzat bakarrik direla ulergarriak. Hedabidearen ezaugarriak direla eta, ezin dugu mezua beste hartzaile batzuengana iristea ekidin, baina mezuaren jatorrizko edukia ikustea ekidin dezakegu. Mezua zifratuz lortzen da hori.&#x20;
+* **Autentifikazioa**: Mezu baten hartzaileari ziurtatzen dio mezuaren igorlea bera dela, eta ez beste edozein. Hori ziurtagiriekin eta sinadura digitalarekin lortzen da.
+* **Gaitzezpenik eza**: Aurreko ezaugarriaren ondorio bat da, hartzaileak ziurtatu dezakeelako mezua esperotako igorlearena dela.
+
+## Javaren segurtasuna
+
+Segurtasunaren ikuspegitik, Java 2ren SDK sistemarekin banatutako segurtasun klaseak bi azpimultzotan banatu daitezke:
+
+* Sarbide-kontrolarekin eta baimenen kudeaketarekin lotutako klaseak.&#x20;
+* Kriptografiarekin zerikusia duten klaseak.
+
+Javak helburu orokorreko funtzio kriptografikoetara sartzeko APIak ditu, hala nola Javaren Arkitektura Kriptografikoa edo _Java Cryptography Architecture_ (JCA) eta Javaren Luzapen Kriptografikoa edo _Java Cryptography Extension_ (JCE).
+
+JCA, JDK-rekin banatutako kriptografiarekin lotutako oinarrizko klaseez osatuta dago eta enkriptatzeko euskarria JCE luzapen paketeak ematen du.
+
+Javak Interneteko komunikazio segururako pakete multzo bat ere badu, Java Sockets Seguruen Luzapena edo _Java Secure Socket Extension_ (JSSE) bezala ezagutzen direnak. SSL eta TLS protokoloen Java bertsio bat inplementatzen du, eta, gainera, zenbait funtzionalitate ditu, hala nola datuen zifratzea, zerbitzariaren autentifikazioa, mezuen osotasuna eta bezeroaren autentifikazioa.
+
+Azkenik, Javak interfaze bat du, Java aplikazioek autentifikazio- eta sarbide-kontroleko zerbitzuak, Java autentifikatzeko eta baimentzeko zerbitzua edo Java Authentication and Authorization Service (JAAS) erabiltzeko aukera izan dezaten. Bi helbururekin erabil daiteke: erabiltzaileak autentifikatzea Java kodea nork exekutatzen duen jakiteko; eta erabiltzaileak baimentzea exekutatzen duenak hori egiteko behar diren baimenak dituela bermatzeko.
+
+<details>
+
+<summary>JCA: Engineak, algoritmoak eta hornitzaileak</summary>
+
+Javak hornitzaileen arkitektura bat du, algoritmo kriptografikoen inplementazio anitzak (hau da, JCEren inplementazio anitzak) koexistitzea ahalbidetzen duena. Java 2 plataformak asko hedatzen du JCA; besteak beste, ziurtagiriak kudeatzeko azpiegitura hobetu da, X.509 V3 ziurtagiriei eusteko.
+
+JCAren funtzionamendua ulertzeko, oinarrizko termino batzuk definitu behar ditugu:
+
+*   **Engine**: \
+    JCA testuinguruan, "motorra" (engine) terminoa erabiltzen dugu, inplementazio zehatzik ez duen zerbitzu kriptografiko baten irudikapen abstraktua adierazteko. Zerbitzu kriptografiko bat algoritmo batekin edo algoritmo-mota batekin lotuta dago beti, eta funtzio hauetakoren bat izan dezake:
+
+    Eragiketa kriptografikoak ematea (sinaduran eta mezuen laburpenean erabilitakoak, adibidez)- Eragiketak egiteko behar den material kriptografikoa (gakoak edo parametroak) sortzea edo ematea. Gako kriptografikoak modu seguruan multzokatzen dituzten objektuak (gakoen edo ziurtagirien biltegiak) sortzea.
+* **Algoritmoa**: \
+  Algoritmo bat motor baten inplementazioa da. Adibidez, MD5 algoritmoa mezuen laburpen algoritmoen motorraren inplementazioa da. Barne-inplementazioa MD5 klaseak ematen duen kodearen arabera aldatu daiteke.&#x20;
+* **Hornitzailea**: \
+  Hornitzaile bat arduratzen da programatzaileari algoritmo baten edo batzuen inplementazioa emateaz (hau da, algoritmoen barne-inplementazio jakin baterako sarbidea emateaz).
+
+</details>
+
+{% hint style="info" %}
+`java.security` fitxategia
+
+%JAVA\_HOME%/conf/security/java.security da JCAko klaseek erabiltzen duten segurtasun-konfigurazioaren informazioa duen fitxategia.
+
+Hor deklaratuta daude eskuragarri dauden hornitzaile eta algoritmo guztiak, baita klaseek zein ordenatan bilatuko dituzten ere.
+{% endhint %}
+
 ## Zifraketa _simetrikoa_ edo gako ezkutukoa
 
 Mezu zifratuak bidaltzeko, mekanismo edo algoritmoren bat behar da testu arrunta ulertzen zailago bihurtzeko.
