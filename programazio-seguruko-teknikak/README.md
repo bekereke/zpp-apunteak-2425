@@ -177,9 +177,38 @@ public class Cifrador {
 }
 ```
 
-## Laburpen funtzioak edo _hash_
+## Laburpen funtzioak edo _hash_ funtzioak
 
-Message digest edo mezuen laburpenak (hash funtzioak bezala ezagunagoak), datu-bloke baten marka digitala dira (fitxategiak, Stringak,...). Laburpen horiek prozesatzeko algoritmo ugari daude diseinatuta, SHA-1 eta MD5 dira ezagunenak.
+_Hashing_ esaten zaio funtzio kriptografiko bezala ezagutzen den algoritmo matematiko bat erabiliz mezu batetik hizki-kate edo hash bat sortzeko prozesuari.
+
+Nahiz eta hash funtzio bat baino gehiago egon, pasahitzekin jardutera egokitzen direnek lau propietate nagusi izan behar dituzte seguruak izateko:
+
+1. _Determinista_ izan behar da: hash funtzio berdinez prozesatutako mezuak beti sortu behar du hash bera. &#x20;
+2. _Ez-itzulgarria_ izan behar da: ezinezkoa izan behar du hash-etik abiaturik hasierako mezura itzultzea.
+3. _Entropia_ altua du: mezu batera aldaketa txiki batek oso hash desberdina eragin behar du.
+4. _Talkei eutsi_ behar die (kolisioak): bi mezu desberdinek ezingo dute hash berdina sortu.&#x20;
+
+Lau propietateak bateratzen dituen hash funtzio bat hautagai sendoa da pasahitzaren hashing iturri izateko, elkarrekin izugarri zailduko diotelako iruzurgileei alderantzizko ingeniaritza egin eta hashetik pasahitza eskuratzerik.
+
+Gainera, pasahitzentzat diren hashing funtzioek motelak izan behar dute. Algoritmo azkar batek indar gordineko erasoei lagunduko lieke: hackerrak pasahitzak asmatzen saiatuko dira talka egitea bilatuz. Gai dira segundoko milaka milioi (edo bilioi) pasahitz potentzial alderatzeko eta hashing algoritmoa oso ona ez baldin bada, azkenerako matematikoki posiblea da hash berdina sortzea mezu desberdinetik.&#x20;
+
+<details>
+
+<summary><em>Rainbow table</em> erasoak eta haiengatiko babesa</summary>
+
+Sistema informatiko bateko pasahitzak ez dira zuzenean gordetzen testu soil gisa, baizik eta zifratze bidez hash bihurtuta. Hash funtzio bat alde bakarrerako prozesu bat da, eta horrek esan nahi du ezin dela deszifratu. Erabiltzaileak pasahitza sartzen duenean, hash balio bihurtzen da eta ordurak sisteman gordeta dagoen hash balioarekin alderatzen da. Balioak bat badatoz, erabiltzailea autentifikatuta dago.
+
+Rainbow table  datu-base erraldoi bat da indar gorria erabiltzeko hainbat testu sarreraren hashak gordeta dituena. Testu sinpleko pasahitzen eta horiei dagozkien hash balioen hiztegi prekalkulatua da. Hash partikular batek zein testu sinpleko pasahitz sortzen duen jakiteko erabil daiteke. Testu batek baino gehiagok hash bera sor dezakeenez, ez da garrantzitsua jakitea zein izan zen benetan jatorrizko pasahitza, betiere hash bera ekoizten badu.
+
+Konponbiderik?&#x20;
+
+#### `Salt` edo ausazko eransgarriak
+
+Erasoak erraz prebenitu daitezke Salt teknikak erabiliz. Ausazko datu bat sortu eta hash funtziora pasatzen dena testu sinplearekin batera. Horrek bermatzen du pasahitz bakoitzak hash bakar bat duela sortua eta, beraz, Rainbow table erasoa, testu batek baino gehiagok hash balio bera izan dezakeela dioen printzipioaren gainean funtzionatzen duena, ekiditea.
+
+</details>
+
+Message digest edo mezuen laburpenak (hash funtzioak bezala ezagunagoak), datu-bloke baten (fitxategiak, Stringak,...) marka digitala direla esan da honezkero. Laburpen horiek prozesatzeko algoritmo ugari daude diseinatuta, SHA-1 eta MD5 dira ezagunenak.
 
 Nabarmengarri ezaugarri hauek:
 
@@ -199,11 +228,19 @@ Garrantzitsua da nabarmentzea ezen, ezinezkoa denetik laburpenetik hura sortzeko
 Bestelakoa da erabilera: konparaketak egitea. Pasahitzekin erabiltzen da gehien: datu-baseetan laburpena gordetzen baita, pasahitzaren ordez. Hala, pasahitz bat jasotzen denean, haren laburpena sortzen dute, eta gordetako balioarekin alderatzen!
 {% endhint %}
 
+<details>
+
+<summary>Hashing algoritmo ezagunenak</summary>
+
+
+
+</details>
+
 ### `MessageDigest` klasea
 
-Aplikazioeetan kriptografikoki seguruak diren laburpen algoritmoak inplementatzeko klasea da: hala nola SHA-256, edo, SHA-512.
+Aplikazioeetan kriptografikoki seguruak diren laburpen algoritmoak inplementatzeko klasea da: arestian aipatu berri diren SHA-256 edo SHA-512, eta enparauak. Egokiena aukeratu beharren arabera.
 
-JCArekin hash bat sortzeko, hau egin behar da:
+Ondoren, JCArekin hash bat sortzeko, hau egin behar da:
 
 1. `MessageDigest` klaseko `getInstance()` metodo estatikoa erabiliz, `MessageDigest` instantzia edo objektua sortuko da parametro gisa aukeratu algoritmoaren izena zehaztuta. Nahi izanez gero, hornitzailearen izena zehaztuz egin daiteke.&#x20;
 2. Datuak `update()` metodoarekin gehitzen dira. Byte bat edo byte-array bat gehi daiteke. Metodo hau behin baino gehiagotan erabil daiteke datu berriak gehitzeko.&#x20;
