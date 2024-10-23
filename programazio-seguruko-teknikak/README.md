@@ -1,6 +1,8 @@
 ---
 icon: '3'
-description: Hash funtzioak, zifraketa simetrikoa, zifraketa asimetrikoa
+description: >-
+  Protokolo kriptografikoak: hash funtzioak, zifraketa simetrikoa, zifraketa
+  asimetrikoa
 ---
 
 # Programazio seguruko teknikak
@@ -35,7 +37,7 @@ Oro har, socket-en bidez zerbait bidaltzen denean, «testu lau» gisa bidaltzen 
 
 Oro har, segurua izan nahi duen edozein sistemak zifraketa teknikak erabili beharko ditu. Kriptografia hitza grezierazko _kryptos_ hitzetik dator, ezkutukoa esan nahi du; eta, grafoak, idazkera esan nahi du. Kriptografiaren helburua mezu baten esanahia ezkutatzea da: mezua zifratzea edo kodetzea, alegia.
 
-## Segurtasun digitaleko hainbat gako
+## Segurtasun digitalaren ezaugarriak
 
 Komunikazio digitalen segurtasunaren funtsezko alderdiak hauek dira:
 
@@ -43,6 +45,13 @@ Komunikazio digitalen segurtasunaren funtsezko alderdiak hauek dira:
 * **Konfidentzialtasuna**: Ziurtatzen digu transmititutako datuak mezuaren hartzailearentzat bakarrik direla ulergarriak. Hedabidearen ezaugarriak direla eta, ezin dugu mezua beste hartzaile batzuengana iristea ekidin, baina mezuaren jatorrizko edukia ikustea ekidin dezakegu. Mezua zifratuz lortzen da hori.&#x20;
 * **Autentifikazioa**: Mezu baten hartzaileari ziurtatzen dio mezuaren igorlea bera dela, eta ez beste edozein. Hori ziurtagiriekin eta sinadura digitalarekin lortzen da.
 * **Gaitzezpenik eza**: Aurreko ezaugarriaren ondorio bat da, hartzaileak ziurtatu dezakeelako mezua esperotako igorlearena dela.
+
+### Aplikazioak
+
+* **Mezularitza segurua**: mundu guztiak ematen du bere zifratze-gakoa, baina deszifratze-gakoa mantentzen du (asimetrikoa denean). Norbaiti mezu bat bidali nahi badiogu, haren zifratze-gakoa hartu eta bidaltzen diogun mezua zifratzen dugu. Berak bakarrik deszifratu ahal izango du.
+* **Sinadura digitalak**: merkataritza elektronikoaren zutabea. Fitxategi bat aldatu ez dela egiaztatzeko aukera ematen du.
+* **Mezularitza segurua**: mezularitza mota honetan, erasotzaile batek (agian sniffer batekin) gure mezuak deszifratzea ekiditen saiatzen da.
+* **Kautotzeak**: autentifikazio-sistemak informatikan funtsezkoa den gai bat konpontzen saiatzen dira: iruzurgilerik ez dabilela ordezkatzen solaskidea.&#x20;
 
 ## Javaren segurtasuna
 
@@ -99,7 +108,9 @@ Hor deklaratuta daude eskuragarri dauden hornitzaile eta algoritmo guztiak, bait
 
 ## Zifraketa _simetrikoa_ edo gako ezkutukoa
 
-Mezu zifratuak bidaltzeko, mekanismo edo algoritmoren bat behar da testu arrunta ulertzen zailago bihurtzeko.
+Protokolo edo teknika kriptografikoa da. Sistema simetrikoak mezuak bihurtzen dituzte mezu zifratutara funtzioren bat erabiliz. Zerbait deszifratu nahi bada, alderantzizko prozesua aplikatzen da erabilitako gako berarekin.
+
+Beraz, mezu zifratuak bidaltzeko, mekanismo edo algoritmoren bat behar da testu arrunta dena ulertzen zailagoa den beste batera bihurtzeko.
 
 Metodo guztien eskema orokorra hau bezalako kodea izatea da:
 
@@ -168,7 +179,7 @@ public class Cifrador {
 
 ## Laburpen funtzioak edo _hash_
 
-Message digest edo mezu-laburpenak (hash funtzioak bezala ezagunagoak), datu-bloke baten marka digitala dira. Laburpen horiek prozesatzeko algoritmo ugari daude diseinatuta, SHA-1 eta MD5 dira ezagunenak.
+Message digest edo mezuen laburpenak (hash funtzioak bezala ezagunagoak), datu-bloke baten marka digitala dira (fitxategiak, Stringak,...). Laburpen horiek prozesatzeko algoritmo ugari daude diseinatuta, SHA-1 eta MD5 dira ezagunenak.
 
 Nabarmengarri ezaugarri hauek:
 
@@ -181,7 +192,7 @@ Nabarmengarri ezaugarri hauek:
 <mark style="background-color:blue;">Laburpenak identifikatzaile bakar eta fidagarriak sortzeko erabiltzen dira.</mark> Batzuetan, _checksum_ deitzen zaie. Deskarga bat ondo egin den egiaztatzeko erabiltzen dira, edo, inork manipulatu ez izanaren egiaztagiritzat: nahikoa da fitxategien jatorrizko laburpena eskuragai izatea eta jasotako fitxategiarekin sortu berriarekin alderatzea.
 
 {% hint style="warning" %}
-**Hash batek ez du zifratzeko balio, konparaketentzako bai ordea**
+**Hash batek ez du zifratzeko balio. Konparaketak egiteko, bai ordea**
 
 Garrantzitsua da nabarmentzea ezen, ezinezkoa denetik laburpenetik hura sortzeko erabilitako datuak berreskuratzea, laburpena ezin dela erabili informaziorik zifratzeko.
 
@@ -199,7 +210,7 @@ JCArekin hash bat sortzeko, hau egin behar da:
 3. Hash balioa lortzeko `digest()` metodoa erabili.
 4. Hash berri bat kalkulatu nahi izanez gero, `reset()` metodoa erabiltzea dago eta prozesua berriro hasi.
 
-Esaterako:
+#### Testua zifratzea
 
 ```java
 public class U6S2_MessageDigest {
@@ -261,7 +272,11 @@ Resumen (hex data): FB59D31122913314111B92CD60628ED7E7DE62733F3B10DEDAF303AAABE5
 => Algoritmo: SHA-256, Provider: SUN 11
 ```
 
-#### Fitxategien laburpenak&#x20;
+{% hint style="danger" %}
+Javan zifratzen eta deszifratzen duten objektuek `byte[]` datu-motak baino ez dituzte onartzen (`raw` izenekoak). `String` bihurketak dira soilik irakurleak emaitzak ikusi ahal izateko.
+{% endhint %}
+
+#### Fitxategien laburpena sortzea&#x20;
 
 `GnuPG` metodo sortak  balio du testu soilen laburpenak baino fitxategi osoen hasha lortzeko.&#x20;
 
@@ -306,4 +321,142 @@ Fitxategi baten laburpena edo hash kodea lortuko da komando hau sartuta (aukeran
 gpg --print-md SHA256 fitxategia.luzapena
 ```
 
-## ~~Zifraketa asimetrikoa edo gako pribatu/publiko parea~~
+## Zifraketa _asimetrikoa_ edo gako pribatu eta publiko parea
+
+Segurtasun sistema moderno nagusiek bi gako erabiltzen dituzte, bata zifratzeko eta bestea deszifratzeko. Hori hainbat modutan erabili daiteke.
+
+Hots, sistema asimetrikoek zifratze-gako bat eta deszifratze-gako bat erabiltzen dituzte. Gako bat edukita ere, matematikoki ezinezkoa da beste gakoa zein den jakitea, beraz, mundu guztiari eman ahal zaio gakoetako bat (normalean gako publikoa deitzen dena) eta bestea gorde (gako pribatua deitzen dena). Gainera, gakoak nahi dugunerako erabil ditzakegu, eta, adibidez, kasu batzuetan gako publikoarekin zifratuko dugu, eta beste batzuetan, agian, gako pribatuarekin. Era batera lortuko dugu edonork mezua irakurtzea baina garbi edukitzea guk bakarrik idatzi izan ahal dugula; bestera, lortuko dugu edonork idatzi dezakeela mezua, baina irakurri, soilik guk.&#x20;
+
+Gaur-gaurkoz, bermerik handiena asimetrikoek eskaintzen dute. Hori inplementatzeko hainbat sistema daude. Asimetrikoek izan dezaketen eragozpena da konputazionalki duten karga: motelagoak direla.
+
+#### Testua zifratzea
+
+RSA algoritmoa erabili da adibidean:
+
+```java
+public class GestorCifrado {
+        KeyPair claves;
+        KeyPairGenerator generadorClaves;
+        Cipher cifrador;
+        public GestorCifrado()
+                        throws NoSuchAlgorithmException,
+                        NoSuchPaddingException{
+                generadorClaves=
+                                KeyPairGenerator.getInstance("RSA");
+                /*Usaremos una longitud de clave
+                 * de 1024 bits */
+                generadorClaves.initialize(1024);
+                claves=generadorClaves.generateKeyPair();
+                cifrador=Cipher.getInstance("RSA");
+        }
+        public PublicKey getPublica(){
+                return claves.getPublic();
+        }
+        public PrivateKey getPrivada(){
+                return claves.getPrivate();
+        }
+
+        public byte[] cifrar(byte[] paraCifrar,
+                        Key claveCifrado
+                        ) throws InvalidKeyException,
+                        IllegalBlockSizeException,
+                        BadPaddingException{
+                byte[] resultado;
+                /* Se pone el cifrador en modo cifrado*/
+                cifrador.init(Cipher.ENCRYPT_MODE,
+                                claveCifrado);
+                resultado=cifrador.doFinal(paraCifrar);
+                return resultado;
+        }
+
+        public byte[] descifrar(
+                        byte[] paraDescifrar,
+                        Key claveDescifrado)
+                                        throws InvalidKeyException,
+                                        IllegalBlockSizeException,
+                                        BadPaddingException{
+                byte[] resultado;
+                /* Se pone el cifrador en modo descifrado*/
+                cifrador.init(Cipher.DECRYPT_MODE,
+                                claveDescifrado);
+                resultado=cifrador.doFinal(paraDescifrar);
+                return resultado;
+        }
+
+
+
+        public static void main(String[] args)
+                        throws NoSuchAlgorithmException,
+                        NoSuchPaddingException,
+                        InvalidKeyException,
+                        IllegalBlockSizeException,
+                        BadPaddingException,
+                        UnsupportedEncodingException
+        {
+                GestorCifrado gestorCifrado=
+                                new GestorCifrado();
+                String mensajeOriginal="Hola mundo";
+                Key clavePublica=gestorCifrado.getPublica();
+
+                byte[] mensajeCifrado=
+                                gestorCifrado.cifrar(
+                                                mensajeOriginal.getBytes(),
+                                                clavePublica
+                );
+                String cadCifrada=
+                                new String(mensajeCifrado, "UTF-8");
+
+                System.out.println
+                        ("Cadena original:"+mensajeOriginal);
+                System.out.println
+                        ("Cadena cifrada:"+cadCifrada);
+
+                /* Cogemos la cadCifrada y la desciframos
+                 * con la otra clave */
+                Key clavePrivada;
+                clavePrivada=gestorCifrado.getPrivada();
+                byte[] descifrada=
+                                gestorCifrado.descifrar(
+                                                mensajeCifrado,clavePrivada);
+                String mensajeDescifrado;
+    /* E imprimimos el mensaje*/
+                mensajeDescifrado=
+                                new String(descifrada, "UTF-8");
+                System.out.println(
+                                "El mensaje descifrado es:"+
+                                                mensajeDescifrado);
+        }
+}
+```
+
+Aplikazioak sinatzea
+
+Gako publikoko kriptografia erabiliz, aplikazioak «sinatu» daitezke. Sinadura mekanismo bat da, aukera ematen diona aplikazio baten erabiltzaileari egiaztatzeko aplikazioa ez dela aldatu programatzaileak sortu zuenetik (birusak edo programa gaiztoak, enpresarekin gustura ez dauden langileak, inbidia dizun ikaskideak, etab.).
+
+Sinatu aurretik, arestian aipatutako `keytool` tresnarekin sortutako bi gako izan behar dira. Demagun gakoen biltegia sortuta dagoela eta bertan ezizen bat edo batzuk sortuta daudela. Hona hemen sinatze-prozesua:
+
+{% stepper %}
+{% step %}
+### Aplikazioa programatzea
+
+Aplikazioa sortu, klase multzo batez osatua egon daitekeena baina azken finean `main` bat izango duena.
+{% endstep %}
+
+{% step %}
+### Enpaketatzea
+
+Bildu aplikazioa `jar cfe AplikazioIzena.jar unieibar.AplikazioIzena *` eginda. JAR formatudun fitxategia sortuko du unieibar paketean bilduta dagoen exekutagarria gordeko duena (bestalde `main` metodoak izango duen berdina).&#x20;
+{% endstep %}
+
+{% step %}
+### Egiaztapena
+
+Egiazta daiteke JAR barruko aplikazioa behar bezala exekutatzen dela `java -jar Aplicacion.jar` eginda terminalean.
+{% endstep %}
+
+{% step %}
+### Sinaketa
+
+Orain `jarsigner -keystore AplikazioIzena.jar` exekutatuz egiaztagiria txeratutuko zaio fitxategiari.
+{% endstep %}
+{% endstepper %}
