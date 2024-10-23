@@ -431,9 +431,29 @@ public class GestorCifrado {
 
 Aplikazioak sinatzea
 
+<details>
+
+<summary>Ziurtagiri lokalak jalgitzea <code>keytool</code> metodoarekin</summary>
+
+Praktikak egin ahal izateko segutasuneko ziurtagiri propioak sortu eta jalgiko ditugu.&#x20;
+
+Gako asimetriko bikotea sortu daiteke eta biltegi batean gordeko `keytool` tresnarekin. Adibidean, gakobiltegia izeneko lekuan gordeko dugu eta izenordain batekin ordezkatuko errezago erabiltzeko:
+
+```
+keytool -genkeypair -keyalg RSA -alias zerbitzaria -keystore gakobiltegia
+```
+
+Biltegiak bere aldetik ere gako propioa izango du. Ondoren, gako bikote horretatik abiatuz ziurtagiri bat sortu daiteke:&#x20;
+
+```
+keytool -export -file zertifikatuak.cer -keystore gakobiltegia
+```
+
+</details>
+
 Gako publikoko kriptografia erabiliz, aplikazioak «sinatu» daitezke. Sinadura mekanismo bat da, aukera ematen diona aplikazio baten erabiltzaileari egiaztatzeko aplikazioa ez dela aldatu programatzaileak sortu zuenetik (birusak edo programa gaiztoak, enpresarekin gustura ez dauden langileak, inbidia dizun ikaskideak, etab.).
 
-Sinatu aurretik, arestian aipatutako `keytool` tresnarekin sortutako bi gako izan behar dira. Demagun gakoen biltegia sortuta dagoela eta bertan ezizen bat edo batzuk sortuta daudela. Hona hemen sinatze-prozesua:
+Sinatu aurretik, arestian aipatutako `keytool` tresnarekin sortutako bi gakoak prest izan behar dira. Demagun gakoen biltegia sortuta dagoela eta bertan ezizen bat edo batzuk sortuta daudela. Hona hemen sinatze-prozesua:
 
 1. Aplikazioa sortu, klase multzo batez osatua egon daitekeena baina azken finean `main` bat izango duena.
 2. Bildu aplikazioa `jar cfe AplikazioIzena.jar unieibar.AplikazioIzena *` eginda. JAR formatudun fitxategia sortuko du unieibar paketean bilduta dagoen exekutagarria gordeko duena (bestalde `main` metodoak izango duen berdina).&#x20;
@@ -458,5 +478,5 @@ Orain beste erabiltzaile batek gure aplikazioa exekutatu nahi badu, gure ziurtag
 Komandoak _jar verified_ bezalako zerbaitekin erantzun beharko du. Hala ere, ziurtapen-agintaritzaren batek (CA) sinatutako ziurtagiririk ezean, tresna kexatu egingo da segurtasun-irizpide batzuk ez direlako betetzen. Norberak sinatutako egiaztagiria izanagatik.&#x20;
 
 {% hint style="danger" %}
-Sinadura eta egiaztatze prozesua norberak egindako ziurtagiriekin egitea, praktikatzeko baliagarria izan daitekeen arren, erabat alferrikakoa da segurtasunaren ikuspuntutik. Ziurtagiri bat segurua izan dadin, ziurtapen-autoritate (CA) batek sinatu behar digu lehenik (horretarako, ohikoa izaten da ordaindu behar izatea).
+Sinadura eta egiaztatze prozesua norberak egindako ziurtagiriekin egitea, praktikatzeko baliagarria izan daitekeen arren, erabat alferrikakoa da segurtasunaren ikuspuntutik. Ziurtagiri bat segurua izan dadin, ziurtagiri-jaultitzaile (CA) batek sinatu behar digu lehenik (horretarako, ohikoa izaten da ordaindu behar izatea).
 {% endhint %}
