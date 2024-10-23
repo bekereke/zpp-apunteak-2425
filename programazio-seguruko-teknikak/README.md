@@ -435,28 +435,28 @@ Gako publikoko kriptografia erabiliz, aplikazioak «sinatu» daitezke. Sinadura 
 
 Sinatu aurretik, arestian aipatutako `keytool` tresnarekin sortutako bi gako izan behar dira. Demagun gakoen biltegia sortuta dagoela eta bertan ezizen bat edo batzuk sortuta daudela. Hona hemen sinatze-prozesua:
 
-{% stepper %}
-{% step %}
-### Aplikazioa programatzea
+1. Aplikazioa sortu, klase multzo batez osatua egon daitekeena baina azken finean `main` bat izango duena.
+2. Bildu aplikazioa `jar cfe AplikazioIzena.jar unieibar.AplikazioIzena *` eginda. JAR formatudun fitxategia sortuko du unieibar paketean bilduta dagoen exekutagarria gordeko duena (bestalde `main` metodoak izango duen berdina).&#x20;
+3. Egiazta daiteke JAR barruko aplikazioa behar bezala exekutatzen dela `java -jar Aplicacion.jar` eginda terminalean.
+4. Orain `jarsigner -keystore AplikazioIzena.jar` exekutatuz egiaztagiria txeratutuko zaio fitxategiari.
 
-Aplikazioa sortu, klase multzo batez osatua egon daitekeena baina azken finean `main` bat izango duena.
-{% endstep %}
+Urrats horiekin aplikazioa sinatuta dago, eta erabiltzaileak nahi izanez gero egiazta dezake. Izan ere, JAR edukia ateratzen bada fitxategitik `jar -xf AplikazioIzena.jar` erabiliz, ateratzen dira `.class` fitxategiak (exekutagarriak) eta `META-INF/Manifest` fitxategia. Editore batekin ireki daiteke azken hori, eta sinadura egiaztatu.
 
-{% step %}
-### Enpaketatzea
+Beste pertsona batzuek gure aplikazioa zuzena dela egiaztatu ahal izateko, programatzaileok erabiltzaileek inporta dezaketen ziurtagiri bat esportatu beharko dugu. Gogoan izan komandoa hau dela:&#x20;
 
-Bildu aplikazioa `jar cfe AplikazioIzena.jar unieibar.AplikazioIzena *` eginda. JAR formatudun fitxategia sortuko du unieibar paketean bilduta dagoen exekutagarria gordeko duena (bestalde `main` metodoak izango duen berdina).&#x20;
-{% endstep %}
+```
+keytool -exportcert -keystore ..\Biltegia.store -file ProgramatzaileIzena.cer -alias ProgramatzaileIzena
+```
 
-{% step %}
-### Egiaztapena
+#### Aplikazioak edonork egiaztatzea
 
-Egiazta daiteke JAR barruko aplikazioa behar bezala exekutatzen dela `java -jar Aplicacion.jar` eginda terminalean.
-{% endstep %}
+Orain beste erabiltzaile batek gure aplikazioa exekutatu nahi badu, gure ziurtagiria inportatu beharko du. Egiaztatze-prozesua erraza da:
 
-{% step %}
-### Sinaketa
+1. Ziurtagiria inportatu.
+2. Aplikazioa egiaztatu `jarsigner -verify -keystore AplikazioIzena.jar <programatzaile_izena>` erabiliz.
 
-Orain `jarsigner -keystore AplikazioIzena.jar` exekutatuz egiaztagiria txeratutuko zaio fitxategiari.
-{% endstep %}
-{% endstepper %}
+Komandoak _jar verified_ bezalako zerbaitekin erantzun beharko du. Hala ere, ziurtapen-agintaritzaren batek (CA) sinatutako ziurtagiririk ezean, tresna kexatu egingo da segurtasun-irizpide batzuk ez direlako betetzen. Norberak sinatutako egiaztagiria izanagatik.&#x20;
+
+{% hint style="danger" %}
+Sinadura eta egiaztatze prozesua norberak egindako ziurtagiriekin egitea, praktikatzeko baliagarria izan daitekeen arren, erabat alferrikakoa da segurtasunaren ikuspuntutik. Ziurtagiri bat segurua izan dadin, ziurtapen-autoritate (CA) batek sinatu behar digu lehenik (horretarako, ohikoa izaten da ordaindu behar izatea).
+{% endhint %}
