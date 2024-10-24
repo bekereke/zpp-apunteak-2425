@@ -232,6 +232,12 @@ Bestelakoa da erabilera: konparaketak egitea. Pasahitzekin erabiltzen da gehien:
 
 <summary>Hashing algoritmo ezagunenak</summary>
 
+*   **MD5**. _Ez gomendagarria_\
+    Mezuak laburtzeko lehen algoritmoa, 1992koa. \
+    Javaren MessageDigest klasearen bidez erabilterraza den arren, ez da kasu guztietan hautagai onena.
+
+    Izan ere, azken urteetan, MD5 funtzioaren talkak izateko ahultasunaren berria zabal da.  Gainera, MD5 algoritmo azkarra denetik, ez du balio indar gordineko erasoen aurka. Ahulgune franko.&#x20;
+* SHA-512\
 
 
 </details>
