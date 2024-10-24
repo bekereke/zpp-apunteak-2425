@@ -232,12 +232,12 @@ Bestelakoa da erabilera: konparaketak egitea. Pasahitzekin erabiltzen da gehien:
 
 <summary>Hashing algoritmo ezagunenak</summary>
 
-*   **MD5. **_**Ez gomendagarria**_\
+*   **MD5**\
     Mezuak laburtzeko lehen algoritmoa, 1992koa. \
     Javaren MessageDigest klasearen bidez erabilterraza den arren, ez da kasu guztietan hautagai onena.
 
     Izan ere, azken urteetan, MD5 funtzioaren talkak izateko ahultasunaren berria zabal da.  Gainera, MD5 algoritmo azkarra denetik, ez du balio indar gordineko erasoen aurka. Ahulgune franko.&#x20;
-*   **SHA-512. **_**Ez gomendagarria**_\
+*   **SHA-512**\
     1993an asmatu zen SHA familiko laburtzaileen familiako bertsio indartsuena da. \
     Ordenagailuen ahalmena handitu ahala, ahulguneak ere identifikatu zaizkie, eta garatzaileek SHA bertsio berritu izan dute maiz ahatik. Bertsio berrienek gero eta luzera handiagoa dute.&#x20;
 
