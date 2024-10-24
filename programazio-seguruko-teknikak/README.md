@@ -232,21 +232,21 @@ Bestelakoa da erabilera: konparaketak egitea. Pasahitzekin erabiltzen da gehien:
 
 <summary>Hashing algoritmo ezagunenak</summary>
 
-*   **MD5**\
+*   **MD5. **_**Ez gomendagarria**_\
     Mezuak laburtzeko lehen algoritmoa, 1992koa. \
     Javaren MessageDigest klasearen bidez erabilterraza den arren, ez da kasu guztietan hautagai onena.
 
     Izan ere, azken urteetan, MD5 funtzioaren talkak izateko ahultasunaren berria zabal da.  Gainera, MD5 algoritmo azkarra denetik, ez du balio indar gordineko erasoen aurka. Ahulgune franko.&#x20;
-*   **SHA-512**\
+*   **SHA-512. **_**Ez gomendagarria**_\
     1993an asmatu zen SHA familiko laburtzaileen familiako bertsio indartsuena da. \
     Ordenagailuen ahalmena handitu ahala, ahulguneak ere identifikatu zaizkie, eta garatzaileek SHA bertsio berritu izan dute maiz ahatik. Bertsio berrienek gero eta luzera handiagoa dute.&#x20;
 
     SHA-512 da hirugarren belaunaldia da, SHA familiako algoritmoen artetik gako luzeena duena.
 
     Hau baino SHA bertsio seguruagoak dauden arren, SHA-512 da Javan inplementatzen den indartsuena. `Salt` teknikarekin batera erabiliz gero, SHA-512 aukera ona den arren oraindik orain, honezkero badira aukera indartsuagoak eta motelagoak.
-*   #### **PBKDF2,** BCrypt eta SCrypt <a href="#bd-2-implementing-pbkdf2-in-java" id="bd-2-implementing-pbkdf2-in-java"></a>
+*   #### **PBKDF2, Argon2,** BCrypt eta SCrypt <a href="#bd-2-implementing-pbkdf2-in-java" id="bd-2-implementing-pbkdf2-in-java"></a>
 
-    Komunean daukaten ezaugarri nagusienak dira moteltasuna eta ezarpenak aldatzeko aukera. Horrela, sendotasun maila desberdinak lortu ditzakete egoeraren arabera. Gero, aurrenekoa Javan natiboki erabiltzeko klaseak dauden artean (`PBEKeySpec`), azken biak baliatzeko _Spring Security_ren `PasswordEncoder` interfazea lortu beharko da eta proiektuan erantsi erabili ahal izateko.&#x20;
+    Inplementazio modernoenak dira. Komunean daukaten ezaugarri nagusienak dira moteltasuna eta ezarpenak aldatzeko aukera. Horrela, sendotasun maila desberdinak lortu ditzakete egoeraren arabera. Gero, aurrenekoa Javan natiboki erabiltzeko klaseak dauden artean (`PBEKeySpec`), besteak baliatzeko _Spring Security_ren edo _BouncyCastle_ren soluzioetara jo behar: hurrenez-hurren, `BCryptPasswordEncoder`interfazea eta `Argon2BytesGenerator` zein `Argon2Parameters.Builder` parea lortu beharko dira eta proiektuan erantsi erabili ahal izateko.&#x20;
 
 </details>
 
@@ -347,27 +347,223 @@ Hash laburpenerako pausoak honelako zerbaitetan geldituko dira:
 SecureRandom random = new SecureRandom();
 byte[] salt = new byte[16];
 random.nextBytes(salt);
-String password = "0123456789";
+String passwordToHash = "0123456789";
 ```
 
 Ondoren, `MessageDigest` erabiliz, esaterako, SHA-512 indartuko da:
 
 ```java
 MessageDigest md = MessageDigest.getInstance("SHA-512");
-md.update(Bytes.concat(salt,password.getBytes()));
+md.update(salt);
 ```
 
 Eta behin erantsi dela, laburpena sortu daiteke aurretik ere ikusi den erara:
 
 ```java
-byte[] hashedPassword = md.digest(passwordToHash.getBytes(StandardCharsets.UTF_8));
+byte[] hashedPassword = md.digest(passwordToHash.getBytes(StandardCharsets.UTF_8))
+```
+
+Gero gorde beharko dira datu-basean hash eta salt hori, erabiltzaileek kautotu nahi direnerako bidaltzen duten pasahitzari (testuari) salt berdina aplikatu eta hasheatu ostean emaitzak konparatzeko.&#x20;
+
+</details>
+
+<details>
+
+<summary>Adibide gehiago</summary>
+
+####
+
+BCrypt
+
+```java
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+public class BCryptHashing {
+    public static String hashPassword(String password) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        return passwordEncoder.encode(password);
+    }
+}
+```
+
+Argon2
+
+```java
+import org.bouncycastle.crypto.generators.Argon2BytesGenerator;
+import org.bouncycastle.crypto.params.Argon2Parameters;
+
+public class Argon2Hashing {
+    public static String hashPassword(String password) {
+      
+        // Set realistic values for Argon2 parameters
+        int parallelism = 2; // Use 2 threads
+        int memory = 65536; // Use 64 MB of memory
+        int iterations = 3; // Run 3 iterations
+        int hashLength = 32; // Generate a 32 byte (256 bit) hash
+      
+        Argon2BytesGenerator generator = new Argon2BytesGenerator();
+        Argon2Parameters.Builder builder = new Argon2Parameters.Builder(Argon2Parameters.ARGON2_id)
+                .withSalt(salt) // You need to generate a salt
+                .withParallelism(parallelism) // Parallelism factor
+                .withMemoryAsKB(memory) // Memory cost
+                .withIterations(iterations); // Number of iterations
+
+        generator.init(builder.build());
+        byte[] result = new byte[hashLength];
+        generator.generateBytes(password.toCharArray(), result);
+        return Base64.getEncoder().encodeToString(result);
+    }
+}
+```
+
+PBKDF2
+
+```java
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
+import java.security.SecureRandom;
+import java.security.spec.KeySpec;
+import java.util.Base64;
+
+public class PBKDF2Hashing {
+    public static String hashPassword(String password) throws Exception {
+        SecureRandom random = new SecureRandom();
+        byte[] salt = new byte[16];
+        random.nextBytes(salt);
+
+        KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 65536, 256);
+        SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
+
+        byte[] hash = factory.generateSecret(spec).getEncoded();
+        return Base64.getEncoder().encodeToString(hash);
+    }
+}
+```
+
+SHA-512
+
+```java
+import java.security.MessageDigest;
+import java.security.SecureRandom;
+import java.util.Base64;
+
+public class SHA512Hashing {
+    public static String hashWithSalt(String password) throws Exception {
+        SecureRandom random = new SecureRandom();
+        byte[] salt = new byte[16];
+        random.nextBytes(salt);
+
+        MessageDigest md = MessageDigest.getInstance("SHA-512");
+        md.update(salt);
+
+        byte[] hashedPassword = md.digest(password.getBytes());
+        return Base64.getEncoder().encodeToString(hashedPassword);
+    }
+}
 ```
 
 </details>
 
-#### Fitxategien laburpena sortzea&#x20;
+#### Hasheatutako sarrerak konparatzea
 
-`GnuPG` metodo sortak  balio du testu soilen laburpenak baino fitxategi osoen hasha lortzeko.&#x20;
+Edozein algoritmo erabiliz hasheaturik dagoen pasahitz bat egiaztatzeko, ohiko jarraibidea da hash berria sortzea sarrera parametro berdinak erabiliz (Salt erabili bada, iterazioaren zenbaketa, etab.). Gero, sortu berri den hasha biltegiratutako hasharekin alderatzen da. Hala ere, BCrypt, Argon2 eta PBKDF 2 bezalako algoritmoekin, konparazioa sinplifikatu egiten da zio horretarako espreski eskuragai dituzten funtzioak erabiliz.
+
+<details>
+
+<summary>Laburpenen egiaztapen adibideak</summary>
+
+**BCryptek** pasahitzak egiaztatzeko metodo bat du:
+
+```java
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+public class BCryptHashing {
+    public static boolean verifyPassword(String inputPassword, String storedHash) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        return encoder.matches(inputPassword, storedHash);
+    }
+}
+```
+
+**Argon2**rako, pasahitza hasheatzeko erabilitako parametroak (Salt...) gorde beharko dira jatorrian. Ondoren, erabiliko dira sarrerako pasahitza laburtzeko eta gordetako hasharekin konparatzeko:
+
+```java
+import org.bouncycastle.crypto.generators.Argon2BytesGenerator;
+import org.bouncycastle.crypto.params.Argon2Parameters;
+import java.util.Base64;
+
+public class Argon2Hashing {
+    public static boolean verifyPassword(String inputPassword, String storedHash, byte[] salt, int parallelism, int memory, int iterations, int hashLength) {
+        Argon2BytesGenerator generator = new Argon2BytesGenerator();
+        Argon2Parameters.Builder builder = new Argon2Parameters.Builder(Argon2Parameters.ARGON2_id)
+                .withSalt(salt)
+                .withParallelism(parallelism)
+                .withMemoryAsKB(memory)
+                .withIterations(iterations);
+
+        generator.init(builder.build());
+        byte[] result = new byte[hashLength];
+        generator.generateBytes(inputPassword.toCharArray(), result);
+        String newHash = Base64.getEncoder().encodeToString(result);
+
+        return newHash.equals(storedHash);
+    }
+}
+```
+
+**PBKDF2**n ere Argon2ren tankeran. Parametroak behar dira:
+
+```java
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
+import java.security.spec.KeySpec;
+import java.util.Base64;
+
+public class PBKDF2Hashing {
+    public static boolean verifyPassword(String inputPassword, String storedHash, byte[] salt, int iterationCount, int keyLength) throws Exception {
+        KeySpec spec = new PBEKeySpec(inputPassword.toCharArray(), salt, iterationCount, keyLength);
+        SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
+
+        byte[] hash = factory.generateSecret(spec).getEncoded();
+        String newHash = Base64.getEncoder().encodeToString(hash);
+
+        return newHash.equals(storedHash);
+    }
+}
+```
+
+**SHA-512**en egiaztapenentzat ere derrigorrez gordeko dira erabilitako Salt emaitza. Ondoren, hori erabiliko da egiaztatu beharreko pasahitza laburtzeko eta bi hashak konparatzeko.
+
+```java
+import java.security.MessageDigest;
+import java.util.Base64;
+
+public class SHA512Hashing {
+    public static boolean verifyPassword(String inputPassword, String storedHash, byte[] salt) throws Exception {
+        MessageDigest md = MessageDigest.getInstance("SHA-512");
+        md.update(salt);
+
+        byte[] hashedInputPassword = md.digest(inputPassword.getBytes());
+        String newHash = Base64.getEncoder().encodeToString(hashedInputPassword);
+
+        return newHash.equals(storedHash);
+    }
+}
+```
+
+</details>
+
+{% hint style="warning" %}
+
+
+* For BCrypt, Argon2, and PBKDF2, it's crucial to use their respective library methods for verification when available, as these handle the comparison securely.
+* For SHA-512, and generally for other hashing algorithms without built-in verification methods, ensure you implement secure comparison to avoid timing attacks.
+* Always securely store the salt and, when necessary, other parameters (like iteration count) alongside the hashed password.
+{% endhint %}
+
+#### Fitxategien laburpenak&#x20;
+
+Pasahitzak alde batera utzi eta fitxategiak ere testu lau gisa adierazi ostean hasheatu daitezke. Kodea sortu zenetik ez duela inongo eguneraketarik jasan frogagiri gisara. `GnuPG` metodo sortak  balio du testu soilen laburpenak baino fitxategi osoen hasha lortzeko.&#x20;
 
 {% hint style="info" %}
 **GnuPGn eskuragai dauden algoritmoak**
@@ -567,5 +763,5 @@ Orain beste erabiltzaile batek gure aplikazioa exekutatu nahi badu, gure ziurtag
 Komandoak _jar verified_ bezalako zerbaitekin erantzun beharko du. Hala ere, ziurtapen-agintaritzaren batek (CA) sinatutako ziurtagiririk ezean, tresna kexatu egingo da segurtasun-irizpide batzuk ez direlako betetzen. Norberak sinatutako egiaztagiria izanagatik.&#x20;
 
 {% hint style="danger" %}
-Sinadura eta egiaztatze prozesua norberak egindako ziurtagiriekin egitea, praktikatzeko baliagarria izan daitekeen arren, erabat alferrikakoa da segurtasunaren ikuspuntutik. Ziurtagiri bat segurua izan dadin, ziurtagiri-jaultitzaile (CA) batek sinatu behar digu lehenik (horretarako, ohikoa izaten da ordaindu behar izatea).
+Sinadura eta egiaztatze prozesua norberak egindako ziurtagiriekin egitea, praktikatzeko baliagarria izan daitekeen arren, erabat alferrikakoa da segurtasunaren ikuspuntutik. Ziurtagiri bat segurua izan dadin, ziurtagiri-jaulkitzaile (CA) batek sinatu behar digu lehenik (horretarako, ohikoa izaten da ordaindu behar izatea).
 {% endhint %}
