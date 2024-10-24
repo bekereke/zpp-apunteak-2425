@@ -232,13 +232,21 @@ Bestelakoa da erabilera: konparaketak egitea. Pasahitzekin erabiltzen da gehien:
 
 <summary>Hashing algoritmo ezagunenak</summary>
 
-*   **MD5**. _Ez gomendagarria_\
+*   **MD5**\
     Mezuak laburtzeko lehen algoritmoa, 1992koa. \
     Javaren MessageDigest klasearen bidez erabilterraza den arren, ez da kasu guztietan hautagai onena.
 
     Izan ere, azken urteetan, MD5 funtzioaren talkak izateko ahultasunaren berria zabal da.  Gainera, MD5 algoritmo azkarra denetik, ez du balio indar gordineko erasoen aurka. Ahulgune franko.&#x20;
-* SHA-512\
+*   **SHA-512**\
+    1993an asmatu zen SHA familiko laburtzaileen familiako bertsio indartsuena da. \
+    Ordenagailuen ahalmena handitu ahala, ahulguneak ere identifikatu zaizkie, eta garatzaileek SHA bertsio berritu izan dute maiz ahatik. Bertsio berrienek gero eta luzera handiagoa dute.&#x20;
 
+    SHA-512 da hirugarren belaunaldia da, SHA familiako algoritmoen artetik gako luzeena duena.
+
+    Hau baino SHA bertsio seguruagoak dauden arren, SHA-512 da Javan inplementatzen den indartsuena. `Salt` teknikarekin batera erabiliz gero, SHA-512 aukera ona den arren oraindik orain, honezkero badira aukera indartsuagoak eta motelagoak.
+*   #### **PBKDF2,** BCrypt eta SCrypt <a href="#bd-2-implementing-pbkdf2-in-java" id="bd-2-implementing-pbkdf2-in-java"></a>
+
+    Komunean daukaten ezaugarri nagusienak dira moteltasuna eta ezarpenak aldatzeko aukera. Horrela, sendotasun maila desberdinak lortu ditzakete egoeraren arabera. Gero, aurrenekoa Javan natiboki erabiltzeko klaseak dauden artean (`PBEKeySpec`), azken biak baliatzeko _Spring Security_ren `PasswordEncoder` interfazea lortu beharko da eta proiektuan erantsi erabili ahal izateko.&#x20;
 
 </details>
 
@@ -318,6 +326,44 @@ Resumen (hex data): FB59D31122913314111B92CD60628ED7E7DE62733F3B10DEDAF303AAABE5
 {% hint style="danger" %}
 Javan zifratzen eta deszifratzen duten objektuek `byte[]` datu-motak baino ez dituzte onartzen (`raw` izenekoak). `String` bihurketak dira soilik irakurleak emaitzak ikusi ahal izateko.
 {% endhint %}
+
+<details>
+
+<summary><code>Salt</code> praktikan (algoritmo ahulentzat konponbidea)</summary>
+
+Hitz gutxitan, hash berri bakoitzerako sortzen den ausazko sekuentzia eransten zaio pasahitzari.
+
+Ausazkotasun hori sartzean, hasharen entropia handitzen laguntzen digu, hiztegian eta zentzuko esaldietan oinarrituta prestatu diren Rainbow table zerrendei aurre egiteko eraginkortasuna areagotuz.
+
+Hash laburpenerako pausoak honelako zerbaitetan geldituko dira:
+
+`salt <- salt-sortzeko-deia;`&#x20;
+
+`hash <- salt + ':' + nahi-den-algoritmoa(salt + pasahitza)`
+
+`java.security` liburutegiko `SecureRandom` klasea erabiliz adibidea, hemen:
+
+```java
+SecureRandom random = new SecureRandom();
+byte[] salt = new byte[16];
+random.nextBytes(salt);
+String password = "0123456789";
+```
+
+Ondoren, `MessageDigest` erabiliz, esaterako, SHA-512 indartuko da:
+
+```java
+MessageDigest md = MessageDigest.getInstance("SHA-512");
+md.update(Bytes.concat(salt,password.getBytes()));
+```
+
+Eta behin erantsi dela, laburpena sortu daiteke aurretik ere ikusi den erara:
+
+```java
+byte[] hashedPassword = md.digest(passwordToHash.getBytes(StandardCharsets.UTF_8));
+```
+
+</details>
 
 #### Fitxategien laburpena sortzea&#x20;
 
