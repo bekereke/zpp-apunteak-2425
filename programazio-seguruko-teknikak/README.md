@@ -208,14 +208,14 @@ Erasoak erraz prebenitu daitezke Salt teknikak erabiliz. Ausazko datu bat sortu 
 
 </details>
 
-Message digest edo mezuen laburpenak (hash funtzioak bezala ezagunagoak), datu-bloke baten (fitxategiak, Stringak,...) marka digitala direla esan da honezkero. Laburpen horiek prozesatzeko algoritmo ugari daude diseinatuta, SHA-1 eta MD5 dira ezagunenak.
+Message digest edo mezuen laburpenak (hash funtzioak bezala ezagunagoak), datu-bloke baten (fitxategiak, Stringak,...) marka digitala direla esan da honezkero. Laburpen horiek prozesatzeko algoritmo ugari daude diseinatuta, historikoki SHA-1 eta MD5 izan dira ezagunenak. Eguneraketak jaso dituzten arren, atzean geratzen joan dira eta inplementazio berriengatik ordeztuak.&#x20;
 
-Nabarmengarri ezaugarri hauek:
+Algoritmo batek izan behar dituen ezaugarri nabarmenenak dira:
 
-* Algoritmo bererako, laburpenak beti du tamaina bera, sortzeko erabili den datuen tamaina edozein dela ere.&#x20;
-* Ezinezkoa da jatorrizko informazioa laburpen batetik berreskuratzea.&#x20;
-* Hura sortzeko erabilitako daturik ez ditu sekula jasoko laburpenak.
-* Konputazionalki bideraezina da laburpen bera duten bi mezu aurkitzea. Ikuspuntu matematikotik oso zaila den arren ez da ezinezkoa.&#x20;
+* Algoritmo berdinerako, laburpenak beti izan behar du tamaina bera; sortzeko erabili den datuen tamaina edozein dela ere.&#x20;
+* Ezinezkoa izango da jatorrizko informazioa laburpen batetik berreskuratzea.&#x20;
+* Hura sortzeko erabilitako daturik ez ditu sekula ikusgarri bilduta eramango laburpenak.
+* Konputazionalki bideraezina izan behar da laburpen bera duten bi mezu aurkitzea  (ikuspuntu matematikotik oso zaila den arren, ez da izaten ezinezkoa, eta, hortik, erasoak).&#x20;
 * Laburtzeko diren datuen aldaketa txiki batek laburpen guztiz ezberdina sortuko du.
 
 <mark style="background-color:blue;">Laburpenak identifikatzaile bakar eta fidagarriak sortzeko erabiltzen dira.</mark> Batzuetan, _checksum_ deitzen zaie. Deskarga bat ondo egin den egiaztatzeko erabiltzen dira, edo, inork manipulatu ez izanaren egiaztagiritzat: nahikoa da fitxategien jatorrizko laburpena eskuragai izatea eta jasotako fitxategiarekin sortu berriarekin alderatzea.
