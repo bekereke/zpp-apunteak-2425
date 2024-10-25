@@ -179,14 +179,14 @@ public class Cifrador {
 
 ## Laburpen funtzioak edo _hash_ funtzioak
 
-_Hashing_ esaten zaio funtzio kriptografiko bezala ezagutzen den algoritmo matematiko bat erabiliz mezu batetik hizki-kate edo hash bat sortzeko prozesuari.
+_Hashing_ esaten zaio funtzio kriptografiko bezala ezagutzen den algoritmo matematiko bat erabiliz mezu batetik hizki-kate edo hash bat sortzeko prozesuari. Message digest edo mezuen laburpenak (hash funtzioak bezala ezagunagoak), datu-bloke baten (fitxategiak, Stringak,...) marka digitala direla esan daiteke. Laburpen horiek prozesatzeko algoritmo ugari daude diseinatuta, historikoki SHA-1 eta MD5 izan dira ezagunenak. Eguneraketak jaso dituzten arren, atzean geratzen joan dira eta inplementazio berriengatik ordeztuak.&#x20;
 
-Nahiz eta hash funtzio bat baino gehiago egon, pasahitzekin jardutera egokitzen direnek lau propietate nagusi izan behar dituzte seguruak izateko:
+Nahiz eta hash funtzio (algoritmo) ugari dauden, pasahitzekin jardutera egokitzen direnek lau propietate nagusi izan behar dituzte seguruak izateko:
 
-1. _Determinista_ izan behar da: hash funtzio berdinez prozesatutako mezuak beti sortu behar du hash bera. &#x20;
+1. _Determinista_ izan behar da: hash funtzio berdinez prozesatutako mezuak beti sortu behar du hash bera. Algoritmo berdinerako, laburpenak beti izan behar du tamaina bera; sortzeko erabili den datuen tamaina edozein dela ere.&#x20;
 2. _Ez-itzulgarria_ izan behar da: ezinezkoa izan behar du hash-etik abiaturik hasierako mezura itzultzea.
-3. _Entropia_ altua du: mezu batera aldaketa txiki batek oso hash desberdina eragin behar du.
-4. _Talkei eutsi_ behar die (kolisioak): bi mezu desberdinek ezingo dute hash berdina sortu.&#x20;
+3. _Entropia_ altua du: mezu batera aldaketa txiki batek oso hash desberdina eragin behar du. Konputazionalki bideraezina izan behar da laburpen bera duten bi mezu aurkitzea  (ikuspuntu matematikotik oso zaila den arren, ez da izaten ezinezkoa, eta, hortik, erasoak). Hura sortzeko erabilitako daturik ez ditu sekula ikusgarri bilduta eramango laburpenak.
+4. _Talkei eutsi_ behar die (kolisioak): bi mezu desberdinek ezingo dute hash berdina sortu. Laburtzeko diren datuen aldaketa txiki batek laburpen guztiz ezberdina sortuko du.&#x20;
 
 Lau propietateak bateratzen dituen hash funtzio bat hautagai sendoa da pasahitzaren hashing iturri izateko, elkarrekin izugarri zailduko diotelako iruzurgileei alderantzizko ingeniaritza egin eta hashetik pasahitza eskuratzerik.
 
@@ -208,17 +208,7 @@ Erasoak erraz prebenitu daitezke Salt teknikak erabiliz. Ausazko datu bat sortu 
 
 </details>
 
-Message digest edo mezuen laburpenak (hash funtzioak bezala ezagunagoak), datu-bloke baten (fitxategiak, Stringak,...) marka digitala direla esan da honezkero. Laburpen horiek prozesatzeko algoritmo ugari daude diseinatuta, historikoki SHA-1 eta MD5 izan dira ezagunenak. Eguneraketak jaso dituzten arren, atzean geratzen joan dira eta inplementazio berriengatik ordeztuak.&#x20;
-
-Algoritmo batek izan behar dituen ezaugarri nabarmenenak dira:
-
-* Algoritmo berdinerako, laburpenak beti izan behar du tamaina bera; sortzeko erabili den datuen tamaina edozein dela ere.&#x20;
-* Ezinezkoa izango da jatorrizko informazioa laburpen batetik berreskuratzea.&#x20;
-* Hura sortzeko erabilitako daturik ez ditu sekula ikusgarri bilduta eramango laburpenak.
-* Konputazionalki bideraezina izan behar da laburpen bera duten bi mezu aurkitzea  (ikuspuntu matematikotik oso zaila den arren, ez da izaten ezinezkoa, eta, hortik, erasoak).&#x20;
-* Laburtzeko diren datuen aldaketa txiki batek laburpen guztiz ezberdina sortuko du.
-
-<mark style="background-color:blue;">Laburpenak identifikatzaile bakar eta fidagarriak sortzeko erabiltzen dira.</mark> Batzuetan, _checksum_ deitzen zaie. Deskarga bat ondo egin den egiaztatzeko erabiltzen dira, edo, inork manipulatu ez izanaren egiaztagiritzat: nahikoa da fitxategien jatorrizko laburpena eskuragai izatea eta jasotako fitxategiarekin sortu berriarekin alderatzea.
+<mark style="background-color:blue;">Laburpenak identifikatzaile bakar eta fidagarriak sortzeko erabiltzen dira.</mark> Batzuetan, _checksum_ eredeitzen zaie. Deskarga bat ondo egin den egiaztatzeko erabiltzen dira, edo, inork manipulatu ez izanaren egiaztagiritzat: nahikoa da fitxategien jatorrizko laburpena eskuragai izatea eta jasotako fitxategiarekin sortu berriarekin alderatzea.
 
 {% hint style="warning" %}
 **Hash batek ez du zifratzeko balio. Konparaketak egiteko, bai ordea**
@@ -252,7 +242,7 @@ Bestelakoa da erabilera: konparaketak egitea. Pasahitzekin erabiltzen da gehien:
 
 ### `MessageDigest` klasea
 
-Aplikazioeetan kriptografikoki seguruak diren laburpen algoritmoak inplementatzeko klasea da: arestian aipatu berri diren SHA-256 edo SHA-512, eta enparauak. Egokiena aukeratu beharren arabera.
+Aplikazioeetan kriptografikoki seguruak diren laburpen algoritmoak inplementatzeko klasea da: arestian aipatu berri diren SHA-256 edo SHA-512, eta enparauak. Egokiena aukeratu behar da beharren arabera.
 
 Ondoren, JCArekin hash bat sortzeko, hau egin behar da:
 
@@ -331,15 +321,16 @@ Javan zifratzen eta deszifratzen duten objektuek `byte[]` datu-motak baino ez di
 
 <summary><code>Salt</code> praktikan (algoritmo ahulentzat konponbidea)</summary>
 
-Hitz gutxitan, hash berri bakoitzerako sortzen den ausazko sekuentzia eransten zaio pasahitzari.
+Esan da algoritmo batzuk ahulak direla talken aurrean (kolisioak). Horiek indartzeko aukerarik badago.
 
-Ausazkotasun hori sartzean, hasharen entropia handitzen laguntzen digu, hiztegian eta zentzuko esaldietan oinarrituta prestatu diren Rainbow table zerrendei aurre egiteko eraginkortasuna areagotuz.
+Hemen proposatzen den honetan, pasahitz bakoitzerako ausazko sekuentzia asmatzen da eransten zaio laburtzeko funtzioari eman orduko.
+
+Ausazkotasun hori sartzean, hasharen entropia handitzen laguntzen digu, hiztegietan eta zentzuzko esaldietan oinarrituta prestatu diren Rainbow table zerrendei aurre egiteko eraginkortasuna areagotuz.
 
 Hash laburpenerako pausoak honelako zerbaitetan geldituko dira:
 
-`salt <- salt-sortzeko-deia;`&#x20;
-
-`hash <- salt + ':' + nahi-den-algoritmoa(salt + pasahitza)`
+1. salt <- salt-sortzeko-deia&#x20;
+2. DBan gorde <- salt + ':' + nahi-den-algoritmoa(salt + pasahitza)
 
 `java.security` liburutegiko `SecureRandom` klasea erabiliz adibidea, hemen:
 
@@ -370,8 +361,6 @@ Gero gorde beharko dira datu-basean hash eta salt hori, erabiltzaileek kautotu n
 <details>
 
 <summary>Adibide gehiago</summary>
-
-####
 
 BCrypt
 
