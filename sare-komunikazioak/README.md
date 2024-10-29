@@ -1,11 +1,13 @@
 ---
-description: SARE KOMUNIKAZIOEN PROGRAMAZIOA
 icon: '4'
+description: SARE KOMUNIKAZIOEN PROGRAMAZIOA
 ---
 
 # Sare komunikazioak
 
-## <mark style="color:purple;">Ikaskuntza emaitzak</mark>
+<details>
+
+<summary><mark style="background-color:purple;">Ikaskuntza emaitzak</mark></summary>
 
 ### <mark style="color:purple;">IE 3. Sareko komunikazioko mekanismoak programatzea, socketak erabiliz eta exekuzio-agertokia aztertuz.</mark>
 
@@ -25,6 +27,8 @@ icon: '4'
 
 <mark style="color:purple;">h) Sareko komunikazioari buruzko aplikazioen prozedurak inplementatzeko hariak erabili ditu.</mark>
 
+</details>
+
 ***
 
 Sareko komunikazioak dira gailuei eta konputagailuei konektatzeko, datuak partekatzeko eta baliabideetara sartzeko aukera ematen dien oinarrizko egitura. Mundu digitalaren oinarria da, eta web-nabigaziotik lineako jokoetara eta urrutiko lanera joateko aukera ematen du.
@@ -32,6 +36,18 @@ Sareko komunikazioak dira gailuei eta konputagailuei konektatzeko, datuak partek
 Sarearen komunikazioan protokoloak, hardwarea eta segurtasun-neurriak daude, eta, horiei esker, datuak truka daitezke. Osagai garrantzitsuen artean daude Interneteko Protokoloa (IP), Transmisioa Kontrolatzeko Protokoloa (TCP) eta Erabiltzailearen Datagrama Protokoloa (UDP). Eremu hori dinamikoa da, eta 5G sareek are konektagarritasun azkarragoa eskaintzen dute IoT eta errealitate areagotua bezalako berrikuntzetarako.
 
 Sareko komunikazioei begiratzen diegun bitartean, haien oinarrizko printzipioak, datuen transmisioa eta administratzaileek eta garatzaileek sareko komunikazioen eraikuntzan eta ulermenean duten zeregina aztertuko ditugu.
+
+{% hint style="success" %}
+**Prozesuak eta hariak**
+
+Ordenagailu-sare baten bidez konexioak eta komunikazioak erabiltzekoa den programa banatua egiteko, ez gara hutsetik abiatuko dagoeneko.
+
+Sareko programazioa oso lotuta dago prozesu anitzeko programazioarekin ([1.gaia](../prozesu-anitzeko-programazioa/)). Batez ere, [prozesuen artean ikusi dugun komunikazio](../prozesu-anitzeko-programazioa/1.4-prozesuak-komunikatzea.md) moduarekin.
+
+Bestalde, zerbitzari batek eskaintzen duen espezializazioa eta zerbitzua, aldi berean hainbat bezerori emateko gai dena, lana harietan banatuz egiten du ([2.gaia](../hari-anitzeko-programazioa/)).
+
+Esandako guztiagatik, orain arte ikasitako kontzeptu eta ezagutza guztiak oinarri gisa erabiliko ditugu gai honen "haria" ez galtzeko.
+{% endhint %}
 
 Javako  `java.net` paketeak sareko aplikazioak inplementatzeko klaseak eskaintzen ditu. Pakete hau bi ataletan banatu daiteke:
 
