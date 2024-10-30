@@ -1,6 +1,6 @@
 ---
 icon: '4'
-description: SARE KOMUNIKAZIOEN PROGRAMAZIOA
+description: APLIKAZIO BANATUEN PROGRAMAZIOA
 ---
 
 # Sare komunikazioak
