@@ -22,7 +22,6 @@
   * [2.2 Datuak partekatzea eta haien osotasuna](hari-anitzeko-programazioa/2.2-datuak-partekatzea-eta-haien-osotasuna.md)
   * [2.3 Hariak sinkronizatzea](hari-anitzeko-programazioa/2.3-hariak-sinkronizatzea.md)
   * [2.4 Ariketak](hari-anitzeko-programazioa/2.4-ariketak.md)
-  * [2.4 Soluzioak](hari-anitzeko-programazioa/2.4-soluzioak.md)
   * [2.5 Iturriak](hari-anitzeko-programazioa/2.5-iturriak.md)
 * [Programazio seguruko teknikak](programazio-seguruko-teknikak/README.md)
   * [3.1 Iturriak](programazio-seguruko-teknikak/3.1-iturriak.md)
@@ -34,3 +33,4 @@
   * [4.5 Iturriak](sare-komunikazioak/4.5-iturriak.md)
 * [Sareko zerbitzuak](sareko-zerbitzuak/README.md)
   * [5.1 FTP](sareko-zerbitzuak/5.1-ftp.md)
+* [Soluzioak](soluzioak.md)
