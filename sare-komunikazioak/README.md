@@ -49,15 +49,17 @@ Bestalde, zerbitzari batek eskaintzen duen espezializazioa eta zerbitzua, aldi b
 Esandako guztiagatik, orain arte ikasitako kontzeptu eta ezagutza guztiak oinarri gisa erabiliko ditugu gai honen "haria" ez galtzeko.
 {% endhint %}
 
-Javako  `java.net` paketeak sareko aplikazioak inplementatzeko klaseak eskaintzen ditu. Pakete hau bi ataletan banatu daiteke:
+## `java.net` bilduma
 
-#### Maila baxuko APIa:
+Javako  `java.net` bilduma sareko aplikazioak inplementatzeko klaseak eskaintzen ditu. Pakete hau bi ataletan banatu daiteke:
+
+### Maila baxuko APIa:
 
 1. **Helbideak**: Sare-identifikatzaileekin jarduteko baliabideak biltzen ditu hemen, hala nola, IP helbideekin. Aipagarria da `InetAddress` klasea; horrek IP helbide bat adierazten du eta horri buruzko informazioa lortzeko metodoak eskaintzen ditu; esaterako, ekipo izenaren (_hostname_) ebazpena.
 2. **Socketak**: Dagoeneko dakizunez, datuak bi norabidetan komunikatzeko oinarrizko mekanismoak dira socketak, eta oinarrizkoak dira sareetan. Javak `Socket` eta `ServerSocket` klaseak ematen ditu sareko komunikazioa inplementatzeko TCP (Transmission Control Protocol) sockets erabiliz eta `DatagramSocket`  UDP (User Datagram Protocol) oinarridun komunikaziorako.
 3. **Interfazeak**: Klase hauek sare-interfazeak deskribatzen dituzte eta sisteman eskuragarri dauden sare-interfazeei buruzko informazioa ematen dute. Atal honetan `NetworkInterface` klaseko klase bat erakusten da.
 
-## Goi mailako APIa:
+### Goi mailako APIa:
 
 1. **URI (Uniform Resource Identifier)**: Baliabide unibertsalen identifikatzaileen alorreko klaseak eta metodoak biltzen ditu. `URI` klaseak URIak sortzeko, banatzeko eta manipulatzeko metodoak eskaintzen ditu, webean eta beste sistema batzuetan baliabideak identifikatzeko erabiltzen direnak.
 2. **URLak (Uniform Resource Locators)**: URLek baliabide unibertsalen lokalizatzaileak irudikatzen dituzte, eta webguneko baliabideetara sartzeko erabiltzen dira. `URL` klaseak URLak sortzeko eta manipulatzeko aukera ematen du.
