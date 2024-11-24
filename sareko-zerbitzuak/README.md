@@ -1,11 +1,15 @@
 ---
-description: SAREKO ZERBITZUAK PROGRAMATZEA
 icon: '5'
+description: SAREKO ZERBITZUAK PROGRAMATZEA
 ---
 
 # Sareko zerbitzuak
 
-## <mark style="color:purple;">Ikaskuntza emaitzak</mark>
+
+
+<details>
+
+<summary><mark style="color:purple;">Ikaskuntza emaitzak</mark></summary>
 
 ### <mark style="color:purple;">IE 4. Sareko zerbitzuak eskaintzen dituzten aplikazioak garatzea, eta, horretarako, klase-liburutegiak erabiltzea eta eragimen eta eskuragarritasuneko irizpideak aplikatzea.</mark>
 
@@ -23,5 +27,6 @@ icon: '5'
 
 <mark style="color:purple;">g) Garatutako aplikazioak araztu eta dokumentatu ditu.</mark>
 
-***
+</details>
 
+***
