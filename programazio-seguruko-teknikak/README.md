@@ -79,14 +79,12 @@ JCAren funtzionamendua ulertzeko, oinarrizko termino batzuk definitu behar ditug
 *   **Engine**: \
     JCA testuinguruan, "motorra" (engine) terminoa erabiltzen dugu, inplementazio zehatzik ez duen zerbitzu kriptografiko baten irudikapen abstraktua adierazteko. Zerbitzu kriptografiko bat algoritmo batekin edo algoritmo-mota batekin lotuta dago beti, eta funtzio hauetakoren bat izan dezake:
 
-    \-Eragiketa kriptografikoak ematea (sinaduran eta mezuen laburpenean erabilitakoak, adibidez)\
-    \-Eragiketak egiteko behar den material kriptografikoa (gakoak edo parametroak) sortzea edo ematea. Gako kriptografikoak modu seguruan multzokatzen dituzten objektuak (gakoen edo ziurtagirien biltegiak) sortzea.
+    -Eragiketa kriptografikoak ematea (sinaduran eta mezuen laburpenean erabilitakoak, adibidez)\
+    -Eragiketak egiteko behar den material kriptografikoa (gakoak edo parametroak) sortzea edo ematea. Gako kriptografikoak modu seguruan multzokatzen dituzten objektuak (gakoen edo ziurtagirien biltegiak) sortzea.
 
-<!---->
-
-* **Algoritmoa**: \
+- **Algoritmoa**: \
   Algoritmo bat motor baten inplementazioa da. Adibidez, MD5 algoritmoa mezuen laburpen algoritmoen motorraren inplementazioa da. Barne-inplementazioa MD5 klaseak ematen duen kodearen arabera aldatu daiteke.&#x20;
-*   **Hornitzaileak**: \
+-   **Hornitzaileak**: \
     Hornitzaile bat arduratzen da programatzaileari algoritmo baten edo batzuen inplementazioa emateaz (hau da, algoritmoen barne-inplementazio jakin baterako sarbidea emateaz). \
     \
     Adibidez: programatzaileak MD5 algoritmoaren inplementazioa behar baldin badu `java.security.Security` klaseko metodoari eskatuko dio objektua eta harkera berean eskuragarri dituen hornitzaile guztiei galdetuta jasoko du behingoz bueltan: \
@@ -236,7 +234,7 @@ Bestelakoa da erabilera: konparaketak egitea. Pasahitzekin erabiltzen da gehien:
     Hau baino SHA bertsio seguruagoak dauden arren, SHA-512 da Javan inplementatzen den indartsuena. `Salt` teknikarekin batera erabiliz gero, SHA-512 aukera ona den arren oraindik orain, honezkero badira aukera indartsuagoak eta motelagoak.
 *   #### **PBKDF2, Argon2,** BCrypt eta SCrypt <a href="#bd-2-implementing-pbkdf2-in-java" id="bd-2-implementing-pbkdf2-in-java"></a>
 
-    Inplementazio modernoenak dira. Komunean daukaten ezaugarri nagusienak dira moteltasuna eta ezarpenak aldatzeko aukera. Horrela, sendotasun maila desberdinak lortu ditzakete egoeraren arabera. Gero, aurrenekoa Javan natiboki erabiltzeko klaseak dauden artean (`PBEKeySpec`), besteak baliatzeko _Spring Security_ren edo _BouncyCastle_ren soluzioetara jo behar: hurrenez-hurren, `BCryptPasswordEncoder`interfazea eta `Argon2BytesGenerator` zein `Argon2Parameters.Builder` parea lortu beharko dira eta proiektuan erantsi erabili ahal izateko.&#x20;
+    Inplementazio modernoenak dira. Komunean daukaten ezaugarri nagusienak dira moteltasuna eta ezarpenak aldatzeko aukera. Horrela, sendotasun maila desberdinak lortu ditzakete egoeraren arabera. Gero, aurrenekoa Javan natiboki erabiltzeko klaseak dauden artean (`PBEKeySpec`), besteak baliatzeko _Spring Securit&#x79;_&#x72;en edo _BouncyCastl&#x65;_&#x72;en soluzioetara jo behar: hurrenez-hurren, `BCryptPasswordEncoder`interfazea eta `Argon2BytesGenerator` zein `Argon2Parameters.Builder` parea lortu beharko dira eta proiektuan erantsi erabili ahal izateko.&#x20;
 
 </details>
 
