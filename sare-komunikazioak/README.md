@@ -5,30 +5,6 @@ description: APLIKAZIO BANATUEN PROGRAMAZIOA
 
 # Sare komunikazioak
 
-<details>
-
-<summary><mark style="background-color:purple;">Ikaskuntza emaitzak</mark></summary>
-
-### <mark style="color:purple;">IE 3. Sareko komunikazioko mekanismoak programatzea, socketak erabiliz eta exekuzio-agertokia aztertuz.</mark>
-
-<mark style="color:purple;">a) Hainbat aplikazioren artean sareko komunikazioa ezartzea eskatzen duten agertokiak identifikatu ditu.</mark>&#x20;
-
-<mark style="color:purple;">b) Bezeroaren eta zerbitzariaren rolak eta horiekin lotzen diren funtzioak identifikatu ditu.</mark>&#x20;
-
-<mark style="color:purple;">c) Sareko aplikazioak programatzeko aukera emango duten programazio-lengoaiaren mekanismoak eta liburutegiak ezagutu ditu.</mark>&#x20;
-
-<mark style="color:purple;">d) “Socket” kontzeptua, motak eta ezaugarriak aztertu ditu.</mark>&#x20;
-
-<mark style="color:purple;">e) Zerbitzari batekin komunikatzen den bezero-aplikazio bat programatzeko socketak erabili ditu.</mark>&#x20;
-
-<mark style="color:purple;">f) Sareko zerbitzari-aplikazio bat garatu du, eta haren funtzionamendua egiaztatu du.</mark>&#x20;
-
-<mark style="color:purple;">g) Informazioa trukatzeko socketak erabiltzen dituzten aplikazioak garatu ditu.</mark>&#x20;
-
-<mark style="color:purple;">h) Sareko komunikazioari buruzko aplikazioen prozedurak inplementatzeko hariak erabili ditu.</mark>
-
-</details>
-
 ***
 
 Sareko komunikazioak dira gailuei eta konputagailuei konektatzeko, datuak partekatzeko eta baliabideetara sartzeko aukera ematen dien oinarrizko egitura. Mundu digitalaren oinarria da, eta web-nabigaziotik lineako jokoetara eta urrutiko lanera joateko aukera ematen du.
@@ -49,7 +25,7 @@ Bestalde, zerbitzari batek eskaintzen duen espezializazioa eta zerbitzua, aldi b
 Esandako guztiagatik, orain arte ikasitako kontzeptu eta ezagutza guztiak oinarri gisa erabiliko ditugu gai honen "haria" ez galtzeko.
 {% endhint %}
 
-<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-type="content-ref"></th></tr></thead><tbody><tr><td><ol><li>GAIA Multiprogramazioa</li></ol></td><td>Prozesu anitzeko programazioa</td><td><a href="../prozesu-anitzeko-programazioa/">prozesu-anitzeko-programazioa</a></td></tr><tr><td>1.4 ATALA Prozesuen fluxuak nahieran maneiatzea</td><td>Prozesuen arteko komunikazioa</td><td><a href="../prozesu-anitzeko-programazioa/1.4-prozesuak-komunikatzea.md">1.4-prozesuak-komunikatzea.md</a></td></tr><tr><td><ol start="2"><li>GAIA Multiataza</li></ol></td><td>Hari anitzeko programazioa</td><td><a href="../hari-anitzeko-programazioa/">hari-anitzeko-programazioa</a></td></tr></tbody></table>
+<table data-view="cards"><thead><tr><th></th><th data-type="content-ref"></th></tr></thead><tbody><tr><td>Multiprogramazioa</td><td><a href="../prozesu-anitzeko-programazioa/">prozesu-anitzeko-programazioa</a></td></tr><tr><td>Prozesuen fluxuak nahieran maneiatzea</td><td><a href="../prozesu-anitzeko-programazioa/1.4-prozesuak-komunikatzea.md">1.4-prozesuak-komunikatzea.md</a></td></tr><tr><td> Multiataza</td><td><a href="../hari-anitzeko-programazioa/">hari-anitzeko-programazioa</a></td></tr></tbody></table>
 
 
 
