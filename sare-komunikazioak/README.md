@@ -41,33 +41,115 @@ Javako  `java.net` bilduma sareko aplikazioak inplementatzeko klaseak eskaintzen
 
 ### Goi mailako APIa
 
-1. **URI (Uniform Resource Identifier)**: Baliabide unibertsalen identifikatzaileen alorreko klaseak eta metodoak biltzen ditu. `URI` klaseak URIak sortzeko, banatzeko eta manipulatzeko metodoak eskaintzen ditu, webean eta beste sistema batzuetan baliabideak identifikatzeko erabiltzen direnak.
+1. **URI (Uniform Resource Identifier)**: Baliabide unibertsalen identifikatzaileen alorreko klaseak eta metodoak biltzen ditu. `URL` klaseak URIak sortzeko, banatzeko eta manipulatzeko metodoak eskaintzen ditu, webean eta beste sistema batzuetan baliabideak identifikatzeko erabiltzen direnak.
 2. **URLak (Uniform Resource Locators)**: URLek baliabide unibertsalen lokalizatzaileak irudikatzen dituzte, eta webguneko baliabideetara sartzeko erabiltzen dira. `URL` klaseak URLak sortzeko eta manipulatzeko aukera ematen du.
 3. **Konexioak**: URLetan adierazitako baliabideekiko konexioak biltzen ditu. URLC onnection bezalako klaseak erabil ditzakezu URLen bidez erreferentziatutako baliabideetarako konexioak ireki eta kudeatzeko, baliabide horietatik eta haietara datuak irakurri eta idazteko aukera emanez.
 
 `java.net` paketeak eskaintzen dituen klase eta abstrakzio horiek funtsezkoak dira Javan sareko aplikazioak garatzeko. Socketen bidez komunikatzeko, IP helbideekin lan egiteko edo URLen bidez web baliabideetara sartzeko, sare-aplikazio ugari garatzeko beharrezko tresnak eskaintzen dituen paketea da.
 
+## `InetAddress` adibidea
+
+```java
+package unieibar;
+
+import java.net.*;
+
+public class TestInetAddress {
+
+	public static void main(String[] args) {
+		InetAddress dir = null;
+
+		try
+		{
+			System.out.println("============================================");
+			System.out.println("LOCALHOST-eko irteera: ");
+			// LOCALHOST
+			dir = InetAddress.getByName("localhost");
+			frogatu(dir);
+
+			System.out.println("============================================");
+			System.out.println("www.uni.eus-eko irteera: ");
+			// www.google.es
+			dir = InetAddress.getByName("www.uni.eus");
+			frogatu(dir);
+
+			System.out.println("============================================");
+			System.out.println(dir.getHostName() + "-ren IP helbideak");
+			// Array bat sortzen dugu www.google.es-en IP helbide guztientzako
+			InetAddress[] helbideak = InetAddress.getAllByName(dir.getHostName());
+			for (int i=0; i<helbideak.length; i++)
+			{
+				System.out.println("\t\t" + helbideak[i].toString());
+			}
+			System.out.println("============================================");
+		}
+		catch (UnknownHostException e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	private static void frogatu(InetAddress dir)
+	{
+		System.out.println("\t getByName(): " + dir);
+		InetAddress dir2;
+		try {
+			dir2 = InetAddress.getLocalHost();
+			System.out.println("\t getLocalHost(): " + dir2);
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		}
+
+		// Klaseko metodoak frogatzen ditugu
+		System.out.println("\t getHostName(): " + dir.getHostName());
+		System.out.println("\t getHostAddress(): " + dir.getHostAddress());
+		System.out.println("\t toString(): " + dir.toString());
+		System.out.println("\t getCanonicalHostName(): " + dir.getCanonicalHostName());
+	}
+}
+```
+
+<details>
+
+<summary>Irteera:</summary>
+
+```
+============================================
+LOCALHOST-eko irteera:
+         getByName(): localhost/127.0.0.1
+         getLocalHost(): HZ129473/172.20.10.10
+         getHostName(): localhost
+         getHostAddress(): 127.0.0.1
+         toString(): localhost/127.0.0.1
+         getCanonicalHostName(): 127.0.0.1
+============================================
+www.uni.eus-eko irteera:
+         getByName(): www.uni.eus/82.223.110.94
+         getLocalHost(): HZ129473/172.20.10.10
+         getHostName(): www.uni.eus
+         getHostAddress(): 82.223.110.94
+         toString(): www.uni.eus/82.223.110.94
+         getCanonicalHostName(): 82.223.110.94
+============================================
+www.uni.eus-ren IP helbideak
+                www.uni.eus/82.223.110.94
+============================================
+```
+
+</details>
+
 ## `URLConnection` adibidea
 
 ```java
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-/**
- *
- * @author Urko
- */
+package unieibar;
+
+import java.io.*;
+import java.net.*;
+
 public class WebPageCodeVisualize {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) throws MalformedURLException, IOException {
-        // TODO code application logic here
+ 
         URLConnection urlCon;
         URL url;
         url = new URL("https://www.uni.eus");
