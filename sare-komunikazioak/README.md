@@ -49,7 +49,7 @@ Bestalde, zerbitzari batek eskaintzen duen espezializazioa eta zerbitzua, aldi b
 Esandako guztiagatik, orain arte ikasitako kontzeptu eta ezagutza guztiak oinarri gisa erabiliko ditugu gai honen "haria" ez galtzeko.
 {% endhint %}
 
-<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-type="content-ref"></th></tr></thead><tbody><tr><td><ol><li>GAIA</li></ol></td><td></td><td><a href="../prozesu-anitzeko-programazioa/">prozesu-anitzeko-programazioa</a></td></tr><tr><td></td><td></td><td><a href="../prozesu-anitzeko-programazioa/1.4-prozesuak-komunikatzea.md">1.4-prozesuak-komunikatzea.md</a></td></tr><tr><td></td><td></td><td><a href="../hari-anitzeko-programazioa/">hari-anitzeko-programazioa</a></td></tr></tbody></table>
+<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-type="content-ref"></th></tr></thead><tbody><tr><td><ol><li>GAIA Multiprogramazioa</li></ol></td><td>Prozesu anitzeko programazioa</td><td><a href="../prozesu-anitzeko-programazioa/">prozesu-anitzeko-programazioa</a></td></tr><tr><td>1.4 ATALA Prozesuen fluxuak nahieran maneiatzea</td><td>Prozesuen arteko komunikazioa</td><td><a href="../prozesu-anitzeko-programazioa/1.4-prozesuak-komunikatzea.md">1.4-prozesuak-komunikatzea.md</a></td></tr><tr><td><ol start="2"><li>GAIA Multiataza</li></ol></td><td>Hari anitzeko programazioa</td><td><a href="../hari-anitzeko-programazioa/">hari-anitzeko-programazioa</a></td></tr></tbody></table>
 
 
 
