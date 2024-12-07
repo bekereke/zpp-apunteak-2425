@@ -34,5 +34,6 @@
   * [4.5 Iturriak](sare-komunikazioak/4.5-iturriak.md)
 * [Sareko zerbitzuak](sareko-zerbitzuak/README.md)
   * [5.1 FTP](sareko-zerbitzuak/5.1-ftp.md)
+  * [5.2 Ariketak](sareko-zerbitzuak/5.2-ariketak.md)
   * [5.2 Iturriak](sareko-zerbitzuak/5.2-iturriak.md)
 * [Soluzioak](soluzioak.md)
