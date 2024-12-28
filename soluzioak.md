@@ -1,6 +1,6 @@
 ---
-hidden: true
 icon: '6'
+hidden: true
 layout:
   title:
     visible: true
@@ -18,6 +18,8 @@ layout:
 
 
 
-{% embed url="https://github.com/bekereke/zpp-prozesu_ariketak_klasean" %}
+{% @github-files/github-code-block %}
 
-{% embed url="https://github.com/bekereke/zpp-hari_ariketak_klasean" %}
+{% @github-files/github-code-block %}
+
+{% @github-files/github-code-block %}
