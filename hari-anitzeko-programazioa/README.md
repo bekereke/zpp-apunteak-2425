@@ -93,4 +93,4 @@ Operazio atomikoa <mark style="background-color:blue;">lan unitate bakar eta zat
 
 ## Sekzio kritikoa
 
-Sekzio kritikoa programa baten zati izendatua da, hari edo prozesu bakar batek aldi berean gauza dezakeena. Elkarri trabak ekiditzeko (besarkada egoera), datuen osotasuna eta sinkronizazioa bermatzeko erabiltzen da. Sekzio kritikoak sinkronizazio-mekanismoek babesten dituzte, adibidez, giltzarrapoek, arrazaren baldintzak saihesteko eta programaren zuzentasuna mantentzeko.
+Sekzio kritikoa programa baten zati izendatua da, hari edo prozesu bakar batek aldi berean gauza dezakeena. Elkarri trabak ekiditzeko (besarkada egoera), datuen osotasuna eta sinkronizazioa bermatzeko erabiltzen da. Sekzio kritikoak sinkronizazio-mekanismoek babesten dituzte, adibidez, sarrailek (monitoreak eta semaforoak), lasterketa baldintzak saihesteko eta programaren zuzentasuna mantentzeko.
