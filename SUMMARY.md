@@ -1,6 +1,7 @@
 # Table of contents
 
 * [Atarikoa](README.md)
+  * [Programazio konkurrentea](readme/programazio-konkurrentea.md)
 * [Java errefortzua](java-errefortzua/README.md)
   * [0.0 Javarekin garatzeko ingurunea prestatzea](java-errefortzua/0.0-javarekin-garatzeko-ingurunea-prestatzea.md)
   * [0.1 Ariketa](java-errefortzua/0.1-ariketa.md)
