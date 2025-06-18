@@ -27,7 +27,7 @@
 * [Programazio seguruko teknikak](programazio-seguruko-teknikak/README.md)
   * [3.1 Zifraketa simetrikoa](programazio-seguruko-teknikak/3.1-zifraketa-simetrikoa.md)
   * [3.2 Laburpen funtzioak](programazio-seguruko-teknikak/3.2-laburpen-funtzioak.md)
-  * [3.3 ZIfraketa asimetrikoa](programazio-seguruko-teknikak/3.3-zifraketa-asimetrikoa.md)
+  * [3.3 Zifraketa asimetrikoa](programazio-seguruko-teknikak/3.3-zifraketa-asimetrikoa.md)
   * [3.4 Ariketak](programazio-seguruko-teknikak/3.1-ariketak.md)
   * [3.5 Iturriak](programazio-seguruko-teknikak/3.2-iturriak.md)
 * [Sare komunikazioak](sare-komunikazioak/README.md)
