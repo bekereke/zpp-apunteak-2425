@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Atarikoa](README.md)
+* [ZPP](README.md)
   * [Programazio konkurrentea](readme/programazio-konkurrentea.md)
 * [Java errefortzua](java-errefortzua/README.md)
   * [0.0 Javarekin garatzeko ingurunea prestatzea](java-errefortzua/0.0-javarekin-garatzeko-ingurunea-prestatzea.md)
