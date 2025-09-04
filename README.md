@@ -1,8 +1,6 @@
 ---
 description: ikasturtea 2024-2025 | irakaslea AITOR ARETXAGA
-cover: >-
-  .gitbook/assets/Pink and Purple Gradient Playful Illustrative Computer Class
-  Google Classroom Header(1).png
+cover: .gitbook/assets/zerbitzu_prozesu_header.png
 coverY: 0
 ---
 

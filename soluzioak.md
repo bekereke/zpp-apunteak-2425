@@ -1,17 +1,6 @@
 ---
-icon: '6'
 hidden: true
-layout:
-  title:
-    visible: true
-  description:
-    visible: true
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: false
+icon: '6'
 ---
 
 # Soluzioak
